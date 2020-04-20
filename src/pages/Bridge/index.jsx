@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { useWeb3Context } from 'web3-react'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
-import { useArbTokenBridge, TokenType } from 'arb-token-bridge/dist/hooks/useArbTokenBridge'
+import { useArbTokenBridge, TokenType } from 'arb-token-bridge'
 import { ethers } from 'ethers'
 import { lighten, darken } from 'polished'
 import Tooltip from '@reach/tooltip'
@@ -84,12 +84,12 @@ const ButtonContainer = styled.div`
   }
 `
 
-const LockboxContainer = styled.div`
+const DetailContainer = styled.div`
   ${({ theme }) => theme.flexColumnNoWrap};
   padding: 1rem 0;
 `
 
-const LockboxBalance = styled.div`
+const BalanceDisplay = styled.div`
   ${({ theme }) => theme.flexRowNoWrap};
   align-items: center;
   color: ${({ theme }) => theme.doveGray};
@@ -188,9 +188,10 @@ export default function Bridge({ params = defaultBridgeParams }) {
   }
 
   const handleInput = (value) => {
-    if (!isLoading) {
-      setTransferValue(value)
+    if (isLoading || value.split('.')[1]?.length > combinedEthDetails[selectedToken].decimals) {
+      return
     }
+    setTransferValue(value)
   }
 
   const handleSelectToken = (address) => {
@@ -235,12 +236,12 @@ export default function Bridge({ params = defaultBridgeParams }) {
     }
   }
 
-  const displayLockboxBalance = () => {
+  const displayLockBoxBalance = () => {
     let balance
     if (selectedToken === ETH_TOKEN) {
-      balance = ethers.utils.formatEther(balances.eth.lockBoxBalance)
+      balance = ethers.utils.formatEther(balances.eth.balance)
     } else {
-      balance = amountFormatter(balances.erc20[selectedToken].lockBoxBalance, combinedEthDetails[selectedToken].decimals, 4)
+      balance = amountFormatter(balances.erc20[selectedToken].balance, combinedEthDetails[selectedToken].decimals, 4)
     }
     return `${balance} ${combinedEthDetails[selectedToken].symbol}`
   }
@@ -266,14 +267,36 @@ export default function Bridge({ params = defaultBridgeParams }) {
     inputName,
     inputDetails,
     outputName,
+    outputDetails
   ] = transferType === TransferType.toArb ?
-      ['Ethereum', combinedEthDetails, 'Arbitrum']
-      : ['Arbitrum', combinedArbDetails, 'Ethereum']
-  const inputBalanceFormatted = amountFormatter(inputDetails[selectedToken].balance, inputDetails[selectedToken].decimals, 4)
+      ['Ethereum', combinedEthDetails, 'Arbitrum', combinedArbDetails]
+      : [`Arbitrum`, combinedArbDetails, 'Ethereum', combinedEthDetails]
+
+  const inputBalanceFormatted = amountFormatter(
+    inputDetails[selectedToken].balance,
+    inputDetails[selectedToken].decimals,
+    inputDetails[selectedToken].decimals,
+  )
+  const outputBalanceBefore = amountFormatter(
+    outputDetails[selectedToken].balance,
+    outputDetails[selectedToken].decimals,
+    outputDetails[selectedToken].decimals,
+  )
+  const outputBalanceAfter = amountFormatter(
+    outputDetails[selectedToken].balance.add(
+      ethers.utils.parseUnits(
+        transferValue || '0',
+        inputDetails[selectedToken].decimals
+      )
+    ),
+    outputDetails[selectedToken].decimals,
+    outputDetails[selectedToken].decimals
+  )
 
   const showInputUnlock = transferType === TransferType.toArb &&
     selectedToken !== ETH_TOKEN &&
     !bridgeTokens[selectedToken].allowed
+
 
   return (
     <>
@@ -301,9 +324,9 @@ export default function Bridge({ params = defaultBridgeParams }) {
       </OversizedPanel>
 
       <OversizedPanel hideTop>
-        <LockboxContainer>
-          <LockboxBalance>
-            <span>Lockbox balance: {displayLockboxBalance()}</span>
+        <DetailContainer>
+          <BalanceDisplay>
+            <span>Lockbox balance: {displayLockBoxBalance()}</span>
             <span style={{ display: 'flex', alignItems: 'center' }}>
               <WithdrawLockBoxBtn
                 onClick={() => withdrawLockbox()}
@@ -329,8 +352,8 @@ export default function Bridge({ params = defaultBridgeParams }) {
                 <StyledQuestionMark />
               </Tooltip>
             </span>
-          </LockboxBalance>
-        </LockboxContainer>
+          </BalanceDisplay>
+        </DetailContainer>
       </OversizedPanel>
 
       <CurrencyInputPanel
@@ -358,6 +381,16 @@ export default function Bridge({ params = defaultBridgeParams }) {
               setTransferType(next)
             }} alt="arrow" />
         </DownArrowBackground>
+        <DetailContainer>
+          <BalanceDisplay>
+            <span>{outputName} balance before</span>
+            <span>{outputBalanceBefore}</span>
+          </BalanceDisplay>
+          <BalanceDisplay>
+            <span>{outputName} balance after</span>
+            <span>{outputBalanceAfter}</span>
+          </BalanceDisplay>
+        </DetailContainer>
       </OversizedPanel>
 
       <ButtonContainer>
