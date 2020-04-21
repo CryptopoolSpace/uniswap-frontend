@@ -106,8 +106,8 @@ export default function App() {
                         ]}
                         component={() => <Pool params={params} />}
                       />
-                      <Route exact path="/bridge" component={() => <Bridge />} />
-                      <Redirect to="/bridge" />
+                      <Route exact path="/arbitrum" component={() => <Bridge />} />
+                      <Redirect to="/arbitrum" />
                     </Switch>
                   </Suspense>
                 </HashRouter>
