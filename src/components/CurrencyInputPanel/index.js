@@ -271,6 +271,7 @@ export default function CurrencyInputPanel({
   onValueChange = () => { },
   allBalances,
   renderInput,
+  inputDisabled = false,
   onCurrencySelected = () => { },
   title,
   description,
@@ -343,6 +344,10 @@ export default function CurrencyInputPanel({
           error={!!errorMessage}
           placeholder="0.0"
           onChange={e => onValueChange(e.target.value)}
+          disabled={inputDisabled}
+          style={{
+            color: inputDisabled ? 'gray' : undefined
+          }}
           onKeyPress={e => {
             const charCode = e.which ? e.which : e.keyCode
 

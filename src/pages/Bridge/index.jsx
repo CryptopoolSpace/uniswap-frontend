@@ -127,7 +127,6 @@ const ETH_TOKEN = 'ETH'
 // TODO display full rollup address on hover
 // TODO disable input if not unlocked, remove auto approve on transfer above
 // TODO transaction error handling
-// TODO make second input txt color + cursor seem disabled
 // TODO pill button withdraw
 // TODO validate unlock btn
 export default function Bridge({ params = defaultBridgeParams }) {
@@ -287,7 +286,6 @@ export default function Bridge({ params = defaultBridgeParams }) {
     selectedToken !== ETH_TOKEN &&
     !bridgeTokens[selectedToken].allowed
 
-
   return (
     <>
       <OversizedPanel hideTop>
@@ -325,7 +323,7 @@ export default function Bridge({ params = defaultBridgeParams }) {
         onCurrencySelected={handleSelectToken}
         selectModalProps={{ enableCreateExchange: true }}
         {...inputPanelProps}
-      // errorMessage={inputError}
+      // errorMessage={'hi'} // only checked as a boolean
       />
 
       <OversizedPanel>
@@ -351,6 +349,7 @@ export default function Bridge({ params = defaultBridgeParams }) {
         extraTextClickHander={() => setTransferValue(outputBalanceFormatted)}
         disableTokenSelect
         hideTokenSelect
+        inputDisabled
         {...inputPanelProps}
       // errorMessage={inputError}
       />
