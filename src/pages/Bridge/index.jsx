@@ -99,6 +99,11 @@ const PanelRow = styled.div`
 `
 
 const WithdrawLockBoxBtn = styled.span`
+  border: 1px solid ${({ theme }) => theme.royalBlue};
+  padding: 0.5rem;
+  border-radius: 3rem;
+  transition: all 0.4s;
+
   &:hover {
     color: ${({ theme }) => theme.royalBlue};
     cursor: pointer;
@@ -127,8 +132,6 @@ const ETH_TOKEN = 'ETH'
 // TODO display full rollup address on hover
 // TODO disable input if not unlocked, remove auto approve on transfer above
 // TODO transaction error handling
-// TODO pill button withdraw
-// TODO validate unlock btn
 export default function Bridge({ params = defaultBridgeParams }) {
   const [transferType, setTransferType] = useState(TransferType.toArb)
   const [transferValue, setTransferValue] = useState('0.0')
@@ -357,15 +360,8 @@ export default function Bridge({ params = defaultBridgeParams }) {
       <OversizedPanel hideBottom>
         <DetailRows>
           <PanelRow>
-            <span>Lockbox balance: {displayLockBoxBalance()}</span>
             <span style={{ display: 'flex', alignItems: 'center' }}>
-              <WithdrawLockBoxBtn
-                onClick={() => withdrawLockbox()}
-                children={isLoading ?
-                  <Spinner src={Circle} alt={'Loading...'} /> :
-                  'Withdraw'
-                }
-              />
+              Lockbox balance: {displayLockBoxBalance()}
               <Tooltip
                 label={<span>When withdrawing tokens from an Arbitrum Rollup, they are held in a smart contract lock box.</span>}
                 style={{
@@ -383,6 +379,13 @@ export default function Bridge({ params = defaultBridgeParams }) {
                 <StyledQuestionMark />
               </Tooltip>
             </span>
+            <WithdrawLockBoxBtn
+              onClick={() => withdrawLockbox()}
+              children={isLoading ?
+                <Spinner src={Circle} alt={'Loading...'} /> :
+                'Withdraw'
+              }
+            />
           </PanelRow>
         </DetailRows>
       </OversizedPanel>
