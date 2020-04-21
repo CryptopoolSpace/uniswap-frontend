@@ -279,6 +279,7 @@ export default function CurrencyInputPanel({
   errorMessage,
   disableUnlock,
   disableTokenSelect,
+  hideTokenSelect = false,
   selectedTokenAddress = '',
   showUnlock,
   value,
@@ -354,24 +355,26 @@ export default function CurrencyInputPanel({
           value={value}
         />
         {renderUnlockButton()}
-        <CurrencySelect
-          selected={!!selectedTokenAddress}
-          onClick={() => {
-            if (!disableTokenSelect) {
-              setModalIsOpen(true)
-            }
-          }}
-        >
-          <Aligner>
-            {selectedTokenAddress ? <TokenLogo address={selectedTokenAddress} /> : null}
-            {
-              <StyledTokenName>
-                {(allTokens[selectedTokenAddress] && allTokens[selectedTokenAddress].symbol) || t('selectToken')}
-              </StyledTokenName>
-            }
-            {!disableTokenSelect && <StyledDropDown selected={!!selectedTokenAddress} />}
-          </Aligner>
-        </CurrencySelect>
+        {hideTokenSelect ? undefined :
+          <CurrencySelect
+            selected={!!selectedTokenAddress}
+            onClick={() => {
+              if (!disableTokenSelect) {
+                setModalIsOpen(true)
+              }
+            }}
+          >
+            <Aligner>
+              {selectedTokenAddress ? <TokenLogo address={selectedTokenAddress} /> : null}
+              {
+                <StyledTokenName>
+                  {(allTokens[selectedTokenAddress] && allTokens[selectedTokenAddress].symbol) || t('selectToken')}
+                </StyledTokenName>
+              }
+              {!disableTokenSelect && <StyledDropDown selected={!!selectedTokenAddress} />}
+            </Aligner>
+          </CurrencySelect>
+        }
       </InputRow>
     )
   }

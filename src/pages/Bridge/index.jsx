@@ -84,18 +84,18 @@ const ButtonContainer = styled.div`
   }
 `
 
-const DetailContainer = styled.div`
+const DetailRows = styled.div`
   ${({ theme }) => theme.flexColumnNoWrap};
-  padding: 1rem 0;
+  padding: 0.5rem 0;
 `
 
-const BalanceDisplay = styled.div`
+const PanelRow = styled.div`
   ${({ theme }) => theme.flexRowNoWrap};
-  align-items: center;
   color: ${({ theme }) => theme.doveGray};
-  font-size: 0.75rem;
-  padding: 0.25rem 1rem 0;
+  align-items: center;
   justify-content: space-between;
+  font-size: 0.75rem;
+  padding: 0.25rem 1rem;
 `
 
 const WithdrawLockBoxBtn = styled.span`
@@ -116,8 +116,6 @@ const StyledQuestionMark = styled(QuestionMark)`
   padding-left: 0.5rem;
 `
 
-// TODO symbol image search overrides for each symbol if possible
-// TODO create exchange when adding token?
 const TransferType = {
   toArb: 1,
   fromArb: 2,
@@ -125,9 +123,13 @@ const TransferType = {
 
 const ETH_TOKEN = 'ETH'
 
-// TODO display full rollup address somewhere
+// TODO symbol image search overrides for each symbol if possible
+// TODO display full rollup address on hover
 // TODO disable input if not unlocked, remove auto approve on transfer above
 // TODO transaction error handling
+// TODO make second input txt color + cursor seem disabled
+// TODO pill button withdraw
+// TODO validate unlock btn
 export default function Bridge({ params = defaultBridgeParams }) {
   const [transferType, setTransferType] = useState(TransferType.toArb)
   const [transferValue, setTransferValue] = useState('0.0')
@@ -239,9 +241,9 @@ export default function Bridge({ params = defaultBridgeParams }) {
   const displayLockBoxBalance = () => {
     let balance
     if (selectedToken === ETH_TOKEN) {
-      balance = ethers.utils.formatEther(balances.eth.balance)
+      balance = ethers.utils.formatEther(balances.eth.lockBoxBalance)
     } else {
-      balance = amountFormatter(balances.erc20[selectedToken].balance, combinedEthDetails[selectedToken].decimals, 4)
+      balance = amountFormatter(balances.erc20[selectedToken].lockBoxBalance, combinedEthDetails[selectedToken].decimals, 4)
     }
     return `${balance} ${combinedEthDetails[selectedToken].symbol}`
   }
@@ -258,8 +260,6 @@ export default function Bridge({ params = defaultBridgeParams }) {
 
   const inputPanelProps = {
     selectedTokenAddress: selectedToken,
-    selectModalProps: { enableCreateExchange: true },
-    onCurrencySelected: handleSelectToken,
     value: transferValue
   }
 
@@ -277,20 +277,10 @@ export default function Bridge({ params = defaultBridgeParams }) {
     inputDetails[selectedToken].decimals,
     inputDetails[selectedToken].decimals,
   )
-  const outputBalanceBefore = amountFormatter(
+  const outputBalanceFormatted = amountFormatter(
     outputDetails[selectedToken].balance,
     outputDetails[selectedToken].decimals,
     outputDetails[selectedToken].decimals,
-  )
-  const outputBalanceAfter = amountFormatter(
-    outputDetails[selectedToken].balance.add(
-      ethers.utils.parseUnits(
-        transferValue || '0',
-        inputDetails[selectedToken].decimals
-      )
-    ),
-    outputDetails[selectedToken].decimals,
-    outputDetails[selectedToken].decimals
   )
 
   const showInputUnlock = transferType === TransferType.toArb &&
@@ -323,9 +313,51 @@ export default function Bridge({ params = defaultBridgeParams }) {
         </Modal>
       </OversizedPanel>
 
-      <OversizedPanel hideTop>
-        <DetailContainer>
-          <BalanceDisplay>
+      <CurrencyInputPanel
+        title={translated('input')}
+        // description={<CurrencyInputDescription children={`from ${inputName}`} />}
+        allBalances={inputDetails}
+        allTokens={inputDetails}
+        extraText={`${inputName} balance: ${inputBalanceFormatted}`}
+        extraTextClickHander={() => setTransferValue(inputBalanceFormatted)}
+        onValueChange={handleInput}
+        showUnlock={showInputUnlock}
+        onCurrencySelected={handleSelectToken}
+        selectModalProps={{ enableCreateExchange: true }}
+        {...inputPanelProps}
+      // errorMessage={inputError}
+      />
+
+      <OversizedPanel>
+        <DownArrowBackground>
+          <DownArrow
+            active={isLoading}
+            clickable
+            onClick={() => {
+              const next = transferType === TransferType.toArb ?
+                TransferType.fromArb :
+                TransferType.toArb
+              setTransferType(next)
+            }} alt="arrow" />
+        </DownArrowBackground>
+      </OversizedPanel>
+
+      <CurrencyInputPanel
+        title={translated('output')}
+        // description={<CurrencyInputDescription children={`to ${outputName}`} />}
+        allBalances={inputDetails}
+        allTokens={inputDetails}
+        extraText={`${outputName} balance: ${outputBalanceFormatted}`}
+        extraTextClickHander={() => setTransferValue(outputBalanceFormatted)}
+        disableTokenSelect
+        hideTokenSelect
+        {...inputPanelProps}
+      // errorMessage={inputError}
+      />
+
+      <OversizedPanel hideBottom>
+        <DetailRows>
+          <PanelRow>
             <span>Lockbox balance: {displayLockBoxBalance()}</span>
             <span style={{ display: 'flex', alignItems: 'center' }}>
               <WithdrawLockBoxBtn
@@ -352,45 +384,8 @@ export default function Bridge({ params = defaultBridgeParams }) {
                 <StyledQuestionMark />
               </Tooltip>
             </span>
-          </BalanceDisplay>
-        </DetailContainer>
-      </OversizedPanel>
-
-      <CurrencyInputPanel
-        title={translated('input')}
-        description={<CurrencyInputDescription children={`from ${inputName}`} />}
-        allBalances={inputDetails}
-        allTokens={inputDetails}
-        extraText={`Balance: ${inputBalanceFormatted}`}
-        extraTextClickHander={() => setTransferValue(inputBalanceFormatted)}
-        onValueChange={handleInput}
-        showUnlock={showInputUnlock} // only unlock for eth side balances
-        {...inputPanelProps}
-      // errorMessage={inputError}
-      />
-
-      <OversizedPanel hideBottom>
-        <DownArrowBackground>
-          <DownArrow
-            active={isLoading}
-            clickable
-            onClick={() => {
-              const next = transferType === TransferType.toArb ?
-                TransferType.fromArb :
-                TransferType.toArb
-              setTransferType(next)
-            }} alt="arrow" />
-        </DownArrowBackground>
-        <DetailContainer>
-          <BalanceDisplay>
-            <span>{outputName} balance before</span>
-            <span>{outputBalanceBefore}</span>
-          </BalanceDisplay>
-          <BalanceDisplay>
-            <span>{outputName} balance after</span>
-            <span>{outputBalanceAfter}</span>
-          </BalanceDisplay>
-        </DetailContainer>
+          </PanelRow>
+        </DetailRows>
       </OversizedPanel>
 
       <ButtonContainer>
