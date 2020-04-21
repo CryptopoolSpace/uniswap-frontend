@@ -28,14 +28,14 @@ const StyledDialogContent = styled(FilteredDialogContent)`
     box-shadow: 0 4px 8px 0 ${({ theme }) => transparentize(0.95, theme.shadowColor)};
     ${({ theme }) => theme.mediaWidth.upToMedium`margin: 0;`};
     padding: 0px;
-    width: 50vw;
-    max-width: 650px;
+    width: 60vw;
+    max-width: 750px;
     ${({ theme }) => theme.mediaWidth.upToMedium`width: 65vw;`}
     ${({ theme }) => theme.mediaWidth.upToSmall`width: 85vw;`}
     max-height: 50vh;
     ${({ minHeight }) =>
-      minHeight &&
-      css`
+    minHeight &&
+    css`
         min-height: ${minHeight}vh;
       `}
     ${({ theme }) => theme.mediaWidth.upToMedium`max-height: 65vh;`}

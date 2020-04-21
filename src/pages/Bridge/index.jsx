@@ -53,8 +53,8 @@ const TransferTypeModal = styled.div`
 const ModalOption = styled.div`
   ${({ theme }) => theme.flexRowNoWrap}
   padding: 1rem;
-  margin-left: 1rem;
-  margin-right: 1rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
   font-size: 1rem;
   cursor: pointer;
   text-decoration: none;
@@ -152,6 +152,10 @@ export default function Bridge({ params = defaultBridgeParams }) {
   const vmIdParsed = bridge.vmId.slice(0, 20) || '0x'
 
   const transferTypeNames = {
+    [TransferType.toArb]: `Ethereum -> Arbitrum Rollup @ ${bridge.vmId}`,
+    [TransferType.fromArb]: ` Arbitrum ${bridge.vmId} -> Ethereum`
+  }
+  const transferTypeNamesTrimmed = {
     [TransferType.toArb]: `Ethereum -> Arbitrum Rollup @ ${vmIdParsed}...`,
     [TransferType.fromArb]: ` Arbitrum ${vmIdParsed}... -> Ethereum`
   }
@@ -293,7 +297,7 @@ export default function Bridge({ params = defaultBridgeParams }) {
     <>
       <OversizedPanel hideTop>
         <TransferTypeSelection onClick={() => setModalOpen(true)}>
-          {transferTypeNames[transferType]}
+          {transferTypeNamesTrimmed[transferType]}
           <ColoredDropdown alt={'arrow down'} />
         </TransferTypeSelection>
         <Modal isOpen={modalOpen} onDismiss={() => { setModalOpen(false) }}>
