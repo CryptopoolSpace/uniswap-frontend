@@ -129,15 +129,13 @@ const TransferType = {
 const ETH_TOKEN = 'ETH'
 
 // TODO symbol image search overrides for each symbol if possible
-// TODO display full rollup address on hover
-// TODO disable input if not unlocked, remove auto approve on transfer above
-// TODO transaction error handling
 export default function Bridge({ params = defaultBridgeParams }) {
   const [transferType, setTransferType] = useState(TransferType.toArb)
   const [transferValue, setTransferValue] = useState('0.0')
   const [selectedToken, setToken] = useState(ETH_TOKEN)
   const [modalOpen, setModalOpen] = useState(false)
   const [isLoading, setLoading] = useState(false)
+  const [errorMessage, setErrorMessage] = useState('')
 
   // const { connector, connectorName, library } = useWeb3Context()
   const { t: translated } = useTranslation()
@@ -195,6 +193,16 @@ export default function Bridge({ params = defaultBridgeParams }) {
     }
   }
 
+  const displayLockBoxBalance = () => {
+    let balance
+    if (selectedToken === ETH_TOKEN) {
+      balance = ethers.utils.formatEther(balances.eth.lockBoxBalance)
+    } else {
+      balance = amountFormatter(balances.erc20[selectedToken].lockBoxBalance, combinedEthDetails[selectedToken].decimals, 4)
+    }
+    return `${balance} ${combinedEthDetails[selectedToken].symbol}`
+  }
+
   const handleInput = (value) => {
     if (isLoading || value.split('.')[1]?.length > combinedEthDetails[selectedToken].decimals) {
       return
@@ -211,9 +219,21 @@ export default function Bridge({ params = defaultBridgeParams }) {
     return Promise.resolve(maybePromise).then(() => setToken(address))
   }
 
-  const handleButtonClick = async () => {
+  const asyncAction = (cb) => (async () => {
     setLoading(true)
+    setErrorMessage('')
+    try {
+      await cb()
+    } catch (e) {
+      console.error(e)
+      setErrorMessage(e.message)
+    } finally {
+      setLoading(false)
+    }
+  })
 
+  const handleButtonClick = asyncAction(async () => {
+    console.log('btn click')
     try {
       switch (transferType) {
         case TransferType.toArb:
@@ -238,31 +258,23 @@ export default function Bridge({ params = defaultBridgeParams }) {
       }
       setTransferValue('0')
     } catch (e) {
-      throw new Error('failed to execute transfer', e)
-    } finally {
-      setLoading(false)
+      e.message = `Transfer failed: ${e.message}`
+      throw e
     }
-  }
+  })
 
-  const displayLockBoxBalance = () => {
-    let balance
-    if (selectedToken === ETH_TOKEN) {
-      balance = ethers.utils.formatEther(balances.eth.lockBoxBalance)
-    } else {
-      balance = amountFormatter(balances.erc20[selectedToken].lockBoxBalance, combinedEthDetails[selectedToken].decimals, 4)
+  const withdrawLockbox = asyncAction(async () => {
+    try {
+      if (selectedToken === ETH_TOKEN) {
+        await bridge.eth.withdrawLockBox()
+      } else {
+        await bridge.token.withdrawLockBox(selectedToken)
+      }
+    } catch (e) {
+      e.message = `Lock box withdrawal failed: ${e.message}`
+      throw e
     }
-    return `${balance} ${combinedEthDetails[selectedToken].symbol}`
-  }
-
-  const withdrawLockbox = async () => {
-    setLoading(true)
-    if (selectedToken === ETH_TOKEN) {
-      await bridge.eth.withdrawLockBox()
-    } else {
-      await bridge.token.withdrawLockBox(selectedToken)
-    }
-    setLoading(false)
-  }
+  })
 
   const inputPanelProps = {
     selectedTokenAddress: selectedToken,
@@ -329,8 +341,9 @@ export default function Bridge({ params = defaultBridgeParams }) {
         showUnlock={showInputUnlock}
         onCurrencySelected={handleSelectToken}
         selectModalProps={{ enableCreateExchange: true }}
+        errorMessage={errorMessage || showInputUnlock}
+        inputDisabled={showInputUnlock}
         {...inputPanelProps}
-      // errorMessage={'hi'} // only checked as a boolean
       />
 
       <OversizedPanel>
@@ -358,7 +371,7 @@ export default function Bridge({ params = defaultBridgeParams }) {
         hideTokenSelect
         inputDisabled
         {...inputPanelProps}
-      // errorMessage={inputError}
+        errorMessage={errorMessage}
       />
 
       <OversizedPanel hideBottom>
@@ -398,7 +411,7 @@ export default function Bridge({ params = defaultBridgeParams }) {
         <Button
           disabled={isLoading}
           onClick={handleButtonClick}
-        // warning={highSlippageWarning || customSlippageError === 'warning'}
+          warning={!!errorMessage}
         >
           {/* text should provide destination context */}
           {isLoading ?
