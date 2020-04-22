@@ -149,7 +149,7 @@ export default function Bridge({ params = defaultBridgeParams }) {
     true
   )
 
-  const vmIdParsed = bridge.vmId.slice(0, 20) || '0x'
+  const vmIdParsed = bridge.vmId.slice(0, 8) || '0x'
 
   const transferTypeNames = {
     [TransferType.toArb]: `Ethereum -> Arbitrum Rollup @ ${bridge.vmId}`,
@@ -373,11 +373,11 @@ export default function Bridge({ params = defaultBridgeParams }) {
                   color: 'white',
                   border: 'none',
                   borderRadius: '24px',
-                  padding: '0.5em 1em',
+                  padding: '0.6rem 0.6rem 0.6rem 1.3rem',
                   marginTop: '-64px',
                   marginLeft: '48px',
                   maxWidth: '150px',
-                  whiteSpace: 'normal'
+                  whiteSpace: 'normal',
                 }}
               >
                 <StyledQuestionMark />
