@@ -34,8 +34,8 @@ const StyledDialogContent = styled(FilteredDialogContent)`
     ${({ theme }) => theme.mediaWidth.upToSmall`width: 85vw;`}
     max-height: 50vh;
     ${({ minHeight }) =>
-    minHeight &&
-    css`
+      minHeight &&
+      css`
         min-height: ${minHeight}vh;
       `}
     ${({ theme }) => theme.mediaWidth.upToMedium`max-height: 65vh;`}

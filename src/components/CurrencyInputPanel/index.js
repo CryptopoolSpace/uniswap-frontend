@@ -268,15 +268,15 @@ const SpinnerWrapper = styled(Spinner)`
 `
 
 export default function CurrencyInputPanel({
-  onValueChange = () => { },
+  onValueChange = () => {},
   allBalances,
   renderInput,
   inputDisabled = false,
-  onCurrencySelected = () => { },
+  onCurrencySelected = () => {},
   title,
   description,
   extraText,
-  extraTextClickHander = () => { },
+  extraTextClickHander = () => {},
   errorMessage,
   disableUnlock,
   disableTokenSelect,
@@ -360,7 +360,9 @@ export default function CurrencyInputPanel({
           value={value}
         />
         {renderUnlockButton()}
-        {hideTokenSelect ? undefined :
+        {hideTokenSelect ? (
+          undefined
+        ) : (
           <CurrencySelect
             selected={!!selectedTokenAddress}
             onClick={() => {
@@ -379,7 +381,7 @@ export default function CurrencyInputPanel({
               {!disableTokenSelect && <StyledDropDown selected={!!selectedTokenAddress} />}
             </Aligner>
           </CurrencySelect>
-        }
+        )}
       </InputRow>
     )
   }
@@ -578,8 +580,8 @@ function CurrencySelectModal({
             ) : account ? (
               <SpinnerWrapper src={Circle} alt="loader" />
             ) : (
-                  '-'
-                )}
+              '-'
+            )}
             <TokenRowUsd>
               {usdBalance ? (usdBalance.lt(0.01) ? '<$0.01' : '$' + formatToUsd(usdBalance)) : ''}
             </TokenRowUsd>
