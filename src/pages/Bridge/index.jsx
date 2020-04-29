@@ -18,10 +18,7 @@ import { DownArrow, DownArrowBackground } from '../../components/ExchangePage'
 import { amountFormatter } from '../../utils'
 import { ColoredDropdown } from '../Pool/ModeSelector'
 
-
-const defaultBridgeParams = {
-
-}
+const defaultBridgeParams = {}
 
 const TransferTypeSelection = styled.div`
   ${({ theme }) => theme.flexRowNoWrap};
@@ -123,7 +120,7 @@ const StyledQuestionMark = styled(QuestionMark)`
 
 const TransferType = {
   toArb: 1,
-  fromArb: 2,
+  fromArb: 2
 }
 
 const ETH_TOKEN = 'ETH'
@@ -174,7 +171,7 @@ export default function Bridge({ params = defaultBridgeParams }) {
       ...combinedEthDetails[ETH_TOKEN],
       name: `Ethereum @ Arbitrum Rollup ${vmIdParsed}`,
       balance: balances.eth.arbChainBalance
-    },
+    }
   }
 
   for (const addr in balances.erc20) {
@@ -185,11 +182,11 @@ export default function Bridge({ params = defaultBridgeParams }) {
       decimals: token.decimals,
       balance: balances.erc20[addr].balance,
       ethRate: ethers.constants.One,
-      exchangeAddress: null,
+      exchangeAddress: null
     }
     combinedArbDetails[addr] = {
       ...combinedEthDetails[addr],
-      balance: balances.erc20[addr].arbChainBalance,
+      balance: balances.erc20[addr].arbChainBalance
     }
   }
 
@@ -198,19 +195,23 @@ export default function Bridge({ params = defaultBridgeParams }) {
     if (selectedToken === ETH_TOKEN) {
       balance = ethers.utils.formatEther(balances.eth.lockBoxBalance)
     } else {
-      balance = amountFormatter(balances.erc20[selectedToken].lockBoxBalance, combinedEthDetails[selectedToken].decimals, 4)
+      balance = amountFormatter(
+        balances.erc20[selectedToken].lockBoxBalance,
+        combinedEthDetails[selectedToken].decimals,
+        4
+      )
     }
     return `${balance} ${combinedEthDetails[selectedToken].symbol}`
   }
 
-  const handleInput = (value) => {
+  const handleInput = value => {
     if (isLoading || value.split('.')[1]?.length > combinedEthDetails[selectedToken].decimals) {
       return
     }
     setTransferValue(value)
   }
 
-  const handleSelectToken = (address) => {
+  const handleSelectToken = address => {
     let maybePromise
     if (address !== ETH_TOKEN && !bridgeTokens[address]) {
       maybePromise = bridge.token.add(address, TokenType.ERC20)
@@ -219,7 +220,7 @@ export default function Bridge({ params = defaultBridgeParams }) {
     return Promise.resolve(maybePromise).then(() => setToken(address))
   }
 
-  const asyncAction = (cb) => (async () => {
+  const asyncAction = cb => async () => {
     setLoading(true)
     setErrorMessage('')
     try {
@@ -230,7 +231,7 @@ export default function Bridge({ params = defaultBridgeParams }) {
     } finally {
       setLoading(false)
     }
-  })
+  }
 
   const handleButtonClick = asyncAction(async () => {
     console.log('btn click')
@@ -281,29 +282,31 @@ export default function Bridge({ params = defaultBridgeParams }) {
     value: transferValue
   }
 
-  const [
-    inputName,
-    inputDetails,
-    outputName,
-    outputDetails
-  ] = transferType === TransferType.toArb ?
-      ['Ethereum', combinedEthDetails, 'Arbitrum', combinedArbDetails]
+  const [inputName, inputDetails, outputName, outputDetails] =
+    transferType === TransferType.toArb
+      ? ['Ethereum', combinedEthDetails, 'Arbitrum', combinedArbDetails]
       : [`Arbitrum`, combinedArbDetails, 'Ethereum', combinedEthDetails]
 
   const inputBalanceFormatted = amountFormatter(
     inputDetails[selectedToken].balance,
     inputDetails[selectedToken].decimals,
-    inputDetails[selectedToken].decimals,
+    inputDetails[selectedToken].decimals
   )
   const outputBalanceFormatted = amountFormatter(
     outputDetails[selectedToken].balance,
     outputDetails[selectedToken].decimals,
-    outputDetails[selectedToken].decimals,
+    outputDetails[selectedToken].decimals
   )
 
-  const showInputUnlock = transferType === TransferType.toArb &&
-    selectedToken !== ETH_TOKEN &&
-    !bridgeTokens[selectedToken].allowed
+  const showInputUnlock =
+    transferType === TransferType.toArb && selectedToken !== ETH_TOKEN && !bridgeTokens[selectedToken].allowed
+
+  const pendingLockboxBalance = () => {
+    const target = selectedToken === ETH_TOKEN ? balances.eth : balances.erc20[selectedToken]
+    return Object.values(target.pendingWithdrawals)
+      .map(tx => tx.value)
+      .reduce((total, current) => total.add(current), ethers.constants.Zero)
+  }
 
   return (
     <>
@@ -312,7 +315,12 @@ export default function Bridge({ params = defaultBridgeParams }) {
           {transferTypeNamesTrimmed[transferType]}
           <ColoredDropdown alt={'arrow down'} />
         </TransferTypeSelection>
-        <Modal isOpen={modalOpen} onDismiss={() => { setModalOpen(false) }}>
+        <Modal
+          isOpen={modalOpen}
+          onDismiss={() => {
+            setModalOpen(false)
+          }}
+        >
           <TransferTypeModal>
             {Object.values(TransferType).map(ttype => (
               <ModalOption
@@ -352,11 +360,11 @@ export default function Bridge({ params = defaultBridgeParams }) {
             active={isLoading}
             clickable
             onClick={() => {
-              const next = transferType === TransferType.toArb ?
-                TransferType.fromArb :
-                TransferType.toArb
+              const next = transferType === TransferType.toArb ? TransferType.fromArb : TransferType.toArb
               setTransferType(next)
-            }} alt="arrow" />
+            }}
+            alt="arrow"
+          />
         </DownArrowBackground>
       </OversizedPanel>
 
@@ -378,9 +386,17 @@ export default function Bridge({ params = defaultBridgeParams }) {
         <DetailRows>
           <PanelRow>
             <span style={{ display: 'flex', alignItems: 'center' }}>
-              Lockbox balance: {displayLockBoxBalance()}
+              Lockbox balance: {displayLockBoxBalance()}&nbsp;
+              {pendingLockboxBalance().gt(0) ? (
+                <i>(+{amountFormatter(pendingLockboxBalance(), inputDetails[selectedToken].decimals, 4)} pending)</i>
+              ) : null}
               <Tooltip
-                label={<span>When withdrawing tokens from an Arbitrum Rollup, they are held in a smart contract lock box.</span>}
+                label={
+                  <span>
+                    When withdrawing tokens from an Arbitrum Rollup, they are held in a smart contract lock box. You
+                    must withdraw them from this lockbox to your Ethereum wallet.
+                  </span>
+                }
                 style={{
                   background: 'hsla(0, 0%, 0%, 0.75)',
                   color: 'white',
@@ -390,7 +406,7 @@ export default function Bridge({ params = defaultBridgeParams }) {
                   marginTop: '-64px',
                   marginLeft: '48px',
                   maxWidth: '150px',
-                  whiteSpace: 'normal',
+                  whiteSpace: 'normal'
                 }}
               >
                 <StyledQuestionMark />
@@ -398,26 +414,16 @@ export default function Bridge({ params = defaultBridgeParams }) {
             </span>
             <WithdrawLockBoxBtn
               onClick={() => withdrawLockbox()}
-              children={isLoading ?
-                <Spinner src={Circle} alt={'Loading...'} /> :
-                'Withdraw'
-              }
+              children={isLoading ? <Spinner src={Circle} alt={'Loading...'} /> : 'Withdraw'}
             />
           </PanelRow>
         </DetailRows>
       </OversizedPanel>
 
       <ButtonContainer>
-        <Button
-          disabled={isLoading}
-          onClick={handleButtonClick}
-          warning={!!errorMessage}
-        >
+        <Button disabled={isLoading} onClick={handleButtonClick} warning={!!errorMessage}>
           {/* text should provide destination context */}
-          {isLoading ?
-            <Spinner src={Circle} alt={'Loading...'} /> :
-            translated(`Transfer to ${outputName} Wallet`)
-          }
+          {isLoading ? <Spinner src={Circle} alt={'Loading...'} /> : translated(`Transfer to ${outputName} Wallet`)}
         </Button>
       </ButtonContainer>
     </>
