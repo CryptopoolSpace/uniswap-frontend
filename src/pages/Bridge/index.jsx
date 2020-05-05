@@ -129,7 +129,7 @@ const ETH_TOKEN = 'ETH'
 export default function Bridge({ params = defaultBridgeParams }) {
   const [transferType, setTransferType] = useState(TransferType.toArb)
   const [transferValue, setTransferValue] = useState('0.0')
-  const [selectedToken, setToken] = useState(ETH_TOKEN)
+  let [selectedToken, setToken] = useState(ETH_TOKEN)
   const [modalOpen, setModalOpen] = useState(false)
   const [isLoading, setLoading] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
@@ -189,6 +189,10 @@ export default function Bridge({ params = defaultBridgeParams }) {
       balance: balances.erc20[addr].arbChainBalance
     }
   }
+  /* ensure selectedToken data is loaded; fallback to ETH if it isn't */
+  if (!combinedArbDetails[selectedToken] || !combinedEthDetails[selectedToken]) {
+    selectedToken = ETH_TOKEN
+  }  
 
   const displayLockBoxBalance = () => {
     let balance
