@@ -192,21 +192,20 @@ export default function Bridge({ params = defaultBridgeParams }) {
   /* ensure selectedToken data is loaded; fallback to ETH if it isn't */
   if (!combinedArbDetails[selectedToken] || !combinedEthDetails[selectedToken]) {
     selectedToken = ETH_TOKEN
-  }  
-
-  const displayLockBoxBalance = () => {
-    let balance
+  }
+  const getLockboxBalance = () => {
     if (selectedToken === ETH_TOKEN) {
-      balance = ethers.utils.formatEther(balances.eth.lockBoxBalance)
+      return ethers.utils.formatEther(balances.eth.lockBoxBalance)
     } else {
-      balance = amountFormatter(
+      return amountFormatter(
         balances.erc20[selectedToken].lockBoxBalance,
         combinedEthDetails[selectedToken].decimals,
         4
       )
     }
-    return `${balance} ${combinedEthDetails[selectedToken].symbol}`
   }
+  const lockBoxBalance = getLockboxBalance()
+  const displayLockBoxBalance = `${lockBoxBalance} ${combinedEthDetails[selectedToken].symbol}`
 
   const handleInput = value => {
     if (isLoading || value.split('.')[1]?.length > combinedEthDetails[selectedToken].decimals) {
@@ -390,7 +389,7 @@ export default function Bridge({ params = defaultBridgeParams }) {
         <DetailRows>
           <PanelRow>
             <span style={{ display: 'flex', alignItems: 'center' }}>
-              Lockbox balance: {displayLockBoxBalance()}&nbsp;
+              Lockbox balance: {displayLockBoxBalance}&nbsp;
               {pendingLockboxBalance().gt(0) ? (
                 <i>(+{amountFormatter(pendingLockboxBalance(), inputDetails[selectedToken].decimals, 4)} pending)</i>
               ) : null}
@@ -416,10 +415,12 @@ export default function Bridge({ params = defaultBridgeParams }) {
                 <StyledQuestionMark />
               </Tooltip>
             </span>
-            <WithdrawLockBoxBtn
-              onClick={() => withdrawLockbox()}
-              children={isLoading ? <Spinner src={Circle} alt={'Loading...'} /> : 'Withdraw'}
-            />
+            {lockBoxBalance > 0 && (
+              <WithdrawLockBoxBtn
+                onClick={() => withdrawLockbox()}
+                children={isLoading ? <Spinner src={Circle} alt={'Loading...'} /> : 'Withdraw'}
+              />
+            )}
           </PanelRow>
         </DetailRows>
       </OversizedPanel>
