@@ -285,7 +285,9 @@ export default function CurrencyInputPanel({
   showUnlock,
   value,
   allTokens,
-  selectModalProps = {}
+  selectModalProps = {},
+  tokenSearch = false,
+  unlockToken = () => {}
 }) {
   const { t } = useTranslation()
 
@@ -306,21 +308,7 @@ export default function CurrencyInputPanel({
     } else {
       if (!pendingApproval) {
         return (
-          <SubCurrencySelect
-            onClick={async () => {
-              const estimatedGas = await tokenContract.estimate.approve(
-                selectedTokenExchangeAddress,
-                ethers.constants.MaxUint256
-              )
-              tokenContract
-                .approve(selectedTokenExchangeAddress, ethers.constants.MaxUint256, {
-                  gasLimit: calculateGasMargin(estimatedGas, GAS_MARGIN)
-                })
-                .then(response => {
-                  addTransaction(response, { approval: selectedTokenAddress })
-                })
-            }}
-          >
+          <SubCurrencySelect onClick={() => (tokenSearch ? handleUnlockToken() : handleUnlockExchange())}>
             {t('unlock')}
           </SubCurrencySelect>
         )
@@ -328,6 +316,22 @@ export default function CurrencyInputPanel({
         return <SubCurrencySelect>{t('pending')}</SubCurrencySelect>
       }
     }
+  }
+
+  async function handleUnlockExchange() {
+    const estimatedGas = await tokenContract.estimate.approve(selectedTokenExchangeAddress, ethers.constants.MaxUint256)
+    tokenContract
+      .approve(selectedTokenExchangeAddress, ethers.constants.MaxUint256, {
+        gasLimit: calculateGasMargin(estimatedGas, GAS_MARGIN)
+      })
+      .then(response => {
+        addTransaction(response, { approval: selectedTokenAddress })
+      })
+  }
+  async function handleUnlockToken() {
+    unlockToken(selectedTokenAddress).then(response => {
+      addTransaction(response.tx, { approval: selectedTokenAddress })
+    })
   }
 
   function _renderInput() {
@@ -428,6 +432,7 @@ export default function CurrencyInputPanel({
           onTokenSelect={onCurrencySelected}
           allBalances={allBalances}
           allTokens={allTokens}
+          tokenSearch={tokenSearch}
           {...selectModalProps}
         />
       )}
@@ -441,6 +446,7 @@ function CurrencySelectModal({
   onTokenSelect,
   allBalances,
   allTokens = {},
+  tokenSearch,
   enableCreateExchange = true
 }) {
   const { t } = useTranslation()
@@ -547,13 +553,14 @@ function CurrencySelectModal({
   }
 
   function renderTokenList() {
+    const searchTarget = tokenSearch ? 'Token' : 'Exchange'
     if (isAddress(searchQuery) && exchangeAddress === undefined) {
-      return <TokenModalInfo>Searching for Exchange...</TokenModalInfo>
+      return <TokenModalInfo>Searching for {searchTarget}...</TokenModalInfo>
     }
     if (isAddress(searchQuery) && exchangeAddress === ethers.constants.AddressZero && enableCreateExchange) {
       return (
         <>
-          <TokenModalInfo>{t('noExchange')}</TokenModalInfo>
+          <TokenModalInfo>No {searchTarget} found</TokenModalInfo>
           <TokenModalInfo>
             <Link to={`/create-exchange/${searchQuery}`}>{t('createExchange')}</Link>
           </TokenModalInfo>
@@ -561,7 +568,7 @@ function CurrencySelectModal({
       )
     }
     if (!filteredTokenList.length) {
-      return <TokenModalInfo>{t('noExchange')}</TokenModalInfo>
+      return <TokenModalInfo>No {searchTarget} found</TokenModalInfo>
     }
 
     return filteredTokenList.map(({ address, symbol, name, balance, usdBalance }) => {

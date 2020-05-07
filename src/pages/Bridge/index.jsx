@@ -143,6 +143,7 @@ export default function Bridge({ params = defaultBridgeParams }) {
     0,
     true
   )
+  const unlockToken = bridge.token.approve
 
   const vmIdParsed = bridge.vmId.slice(0, 8) || '0x'
 
@@ -354,6 +355,8 @@ export default function Bridge({ params = defaultBridgeParams }) {
         selectModalProps={{ enableCreateExchange: true }}
         errorMessage={errorMessage || showInputUnlock}
         inputDisabled={showInputUnlock}
+        tokenSearch={true}
+        unlockToken={unlockToken}
         {...inputPanelProps}
       />
 
