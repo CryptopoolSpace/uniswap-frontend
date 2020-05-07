@@ -445,7 +445,15 @@ const INITIAL_TOKENS_CONTEXT = {
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0xaF51BaAA766b65E8B3Ee0C2c33186325ED01eBD5'
     }
-  }
+  },
+  123456789: {
+    '0x716f0d674efeeca329f141d0ca0d97a98057bdbf': {
+      [NAME]: 'Arbiswap Test Token',
+      [SYMBOL]: 'SWAP',
+      [DECIMALS]: 18,
+      [EXCHANGE_ADDRESS]: '0x895521964D724c8362A36608AAf09A3D7d0A0445'
+    },
+  },
 }
 
 const TokensContext = createContext()
