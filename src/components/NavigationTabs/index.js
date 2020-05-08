@@ -4,9 +4,10 @@ import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import { transparentize, darken } from 'polished'
 import TwitterShare from './TwitterShare'
+import FundsReceived from './FundsReceived'
 import { useBodyKeyDown } from '../../hooks'
 import { useBetaMessageManager } from '../../contexts/LocalStorage'
-
+import { useFundsMessageContext, fundsMessagesEnum } from '../../contexts/FundsMessage'
 const tabOrder = [
   {
     path: '/arbitrum',
@@ -129,10 +130,12 @@ function NavigationTabs({ location: { pathname }, history }) {
 
   useBodyKeyDown('ArrowRight', navigateRight)
   useBodyKeyDown('ArrowLeft', navigateLeft)
+  const [fundsMessageState] = useFundsMessageContext()
 
   return (
     <>
-      <TwitterShare />
+      {fundsMessageState === fundsMessagesEnum.SHOW_REQUEST && <TwitterShare />}
+      {fundsMessageState === fundsMessagesEnum.SHOW_RECEIVED && <FundsReceived />}
       <Tabs>
         {tabOrder.map(({ path, textKey, regex }) => (
           <StyledNavLink key={path} to={path} isActive={(_, { pathname }) => pathname.match(regex)}>
