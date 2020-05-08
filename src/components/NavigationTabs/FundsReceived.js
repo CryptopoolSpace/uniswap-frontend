@@ -37,7 +37,7 @@ const FundsReceivedMessage = styled.div`
   overflow: wrap;
 `
 
-const TwitterShare = () => {
+const FundsReceived = () => {
   const [showTweetShare, setShowTweetShare] = useState(true)
   const hideTweetShare = () => setShowTweetShare(false)
   return (
@@ -54,4 +54,4 @@ const TwitterShare = () => {
   )
 }
 
-export default TwitterShare
+export default FundsReceived
