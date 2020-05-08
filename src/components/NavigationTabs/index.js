@@ -3,7 +3,7 @@ import { withRouter, NavLink } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 import { transparentize, darken } from 'polished'
-
+import TwitterShare from './TwitterShare'
 import { useBodyKeyDown } from '../../hooks'
 import { useBetaMessageManager } from '../../contexts/LocalStorage'
 
@@ -127,6 +127,7 @@ function NavigationTabs({ location: { pathname }, history }) {
 
   return (
     <>
+      <TwitterShare />
       <Tabs>
         {tabOrder.map(({ path, textKey, regex }) => (
           <StyledNavLink key={path} to={path} isActive={(_, { pathname }) => pathname.match(regex)}>
