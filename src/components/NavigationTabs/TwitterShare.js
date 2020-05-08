@@ -46,7 +46,7 @@ const TwitterShare = () => {
     <>
       {showTweetShare && (
         <TweetFaucetMessage>
-          <span> Use your own kovan Ether/tokens, or </span>
+          <span> Use your own Roptsen Ether/tokens, or </span>
           <TwitterShareButton
             options={{
               text: `hey @OffChainLabs, gimmie some tokens plsz: ${account || '0xyouraddresshere'} `,
