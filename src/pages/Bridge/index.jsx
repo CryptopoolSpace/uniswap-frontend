@@ -17,7 +17,7 @@ import Modal from '../../components/Modal'
 import { DownArrow, DownArrowBackground } from '../../components/ExchangePage'
 import { amountFormatter } from '../../utils'
 import { ColoredDropdown } from '../Pool/ModeSelector'
-
+import { useUpdateFundsMessage } from '../../contexts/FundsMessage'
 const defaultBridgeParams = {}
 
 const TransferTypeSelection = styled.div`
@@ -192,6 +192,7 @@ export default function Bridge({ params = defaultBridgeParams }) {
   }
   /* ensure selectedToken data is loaded; fallback to ETH if it isn't */
   if (!combinedArbDetails[selectedToken] || !combinedEthDetails[selectedToken]) {
+    console.warn('TOKEN NOT FOUND, FALLING BACK TO ETH')
     selectedToken = ETH_TOKEN
   }
   const getLockboxBalance = () => {
@@ -311,6 +312,7 @@ export default function Bridge({ params = defaultBridgeParams }) {
       .map(tx => tx.value)
       .reduce((total, current) => total.add(current), ethers.constants.Zero)
   }
+  useUpdateFundsMessage(bridge, balances)
 
   return (
     <>
