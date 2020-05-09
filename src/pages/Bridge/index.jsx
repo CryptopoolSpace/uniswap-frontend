@@ -357,6 +357,7 @@ export default function Bridge({ params = defaultBridgeParams }) {
         inputDisabled={showInputUnlock}
         tokenSearch={true}
         unlockToken={unlockToken}
+        getERC20Info={bridge.token.getERC20Info}
         {...inputPanelProps}
       />
 

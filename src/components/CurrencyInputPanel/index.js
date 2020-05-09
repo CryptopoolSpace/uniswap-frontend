@@ -25,6 +25,7 @@ import { transparentize } from 'polished'
 import { Spinner } from '../../theme'
 import Circle from '../../assets/images/circle-grey.svg'
 import { useUSDPrice } from '../../contexts/Application'
+const deepEquals = require('lodash.isequal')
 
 const GAS_MARGIN = ethers.utils.bigNumberify(1000)
 
@@ -287,7 +288,8 @@ export default function CurrencyInputPanel({
   allTokens,
   selectModalProps = {},
   tokenSearch = false,
-  unlockToken = () => {}
+  unlockToken = () => {},
+  getERC20Info = () => {}
 }) {
   const { t } = useTranslation()
 
@@ -433,6 +435,7 @@ export default function CurrencyInputPanel({
           allBalances={allBalances}
           allTokens={allTokens}
           tokenSearch={tokenSearch}
+          getERC20Info={getERC20Info}
           {...selectModalProps}
         />
       )}
@@ -447,12 +450,14 @@ function CurrencySelectModal({
   allBalances,
   allTokens = {},
   tokenSearch,
-  enableCreateExchange = true
+  enableCreateExchange = true,
+  getERC20Info = () => {}
 }) {
   const { t } = useTranslation()
 
   const [searchQuery, setSearchQuery] = useState('')
   const { exchangeAddress } = useTokenDetails(searchQuery)
+  const [tokenSearchResult, setTokenSearchResult] = useState('')
 
   allTokens = { ...useAllTokenDetails(), ...allTokens }
 
@@ -554,10 +559,11 @@ function CurrencySelectModal({
 
   function renderTokenList() {
     const searchTarget = tokenSearch ? 'Token' : 'Exchange'
-    if (isAddress(searchQuery) && exchangeAddress === undefined) {
+    const isAddressRes = isAddress(searchQuery)
+    if (isAddressRes && exchangeAddress === undefined) {
       return <TokenModalInfo>Searching for {searchTarget}...</TokenModalInfo>
     }
-    if (isAddress(searchQuery) && exchangeAddress === ethers.constants.AddressZero && enableCreateExchange) {
+    if (isAddressRes && !tokenSearch && exchangeAddress === ethers.constants.AddressZero && enableCreateExchange) {
       return (
         <>
           <TokenModalInfo>No {searchTarget} found</TokenModalInfo>
@@ -567,35 +573,60 @@ function CurrencySelectModal({
         </>
       )
     }
+
+    if (tokenSearch && isAddressRes) {
+      getERC20Info(searchQuery).then(erc20Info => {
+        if (!deepEquals(erc20Info, tokenSearchResult)) {
+          setTokenSearchResult(erc20Info)
+        }
+      })
+
+      if (tokenSearchResult) {
+        return (
+          <>
+            <div>
+              {renderTokenRow({
+                address: searchQuery,
+                symbol: tokenSearchResult.symbol,
+                name: tokenSearchResult.name
+              })}
+            </div>
+          </>
+        )
+      }
+    }
+
     if (!filteredTokenList.length) {
       return <TokenModalInfo>No {searchTarget} found</TokenModalInfo>
     }
 
-    return filteredTokenList.map(({ address, symbol, name, balance, usdBalance }) => {
-      return (
-        <TokenModalRow key={address} onClick={() => _onTokenSelect(address)}>
-          <TokenRowLeft>
-            <TokenLogo address={address} size={'2rem'} />
-            <TokenSymbolGroup>
-              <span id="symbol">{symbol}</span>
-              <TokenFullName>{name}</TokenFullName>
-            </TokenSymbolGroup>
-          </TokenRowLeft>
-          <TokenRowRight>
-            {balance ? (
-              <TokenRowBalance>{balance && (balance > 0 || balance === '<0.0001') ? balance : '-'}</TokenRowBalance>
-            ) : account ? (
-              <SpinnerWrapper src={Circle} alt="loader" />
-            ) : (
-              '-'
-            )}
-            <TokenRowUsd>
-              {usdBalance ? (usdBalance.lt(0.01) ? '<$0.01' : '$' + formatToUsd(usdBalance)) : ''}
-            </TokenRowUsd>
-          </TokenRowRight>
-        </TokenModalRow>
-      )
-    })
+    return filteredTokenList.map(renderTokenRow)
+  }
+
+  function renderTokenRow({ address, symbol, name, balance, usdBalance }) {
+    return (
+      <TokenModalRow key={address} onClick={() => _onTokenSelect(address)}>
+        <TokenRowLeft>
+          <TokenLogo address={address} size={'2rem'} />
+          <TokenSymbolGroup>
+            <span id="symbol">{symbol}</span>
+            <TokenFullName>{name}</TokenFullName>
+          </TokenSymbolGroup>
+        </TokenRowLeft>
+        <TokenRowRight>
+          {balance ? (
+            <TokenRowBalance>{balance && (balance > 0 || balance === '<0.0001') ? balance : '-'}</TokenRowBalance>
+          ) : account ? (
+            <SpinnerWrapper src={Circle} alt="loader" />
+          ) : (
+            '-'
+          )}
+          <TokenRowUsd>
+            {usdBalance ? (usdBalance.lt(0.01) ? '<$0.01' : '$' + formatToUsd(usdBalance)) : ''}
+          </TokenRowUsd>
+        </TokenRowRight>
+      </TokenModalRow>
+    )
   }
 
   // manage focus on modal show
