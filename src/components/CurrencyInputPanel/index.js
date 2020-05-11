@@ -589,7 +589,7 @@ function CurrencySelectModal({
                 address: searchQuery,
                 symbol: tokenSearchResult.symbol,
                 name: tokenSearchResult.name
-              })}
+              }, false)}
             </div>
           </>
         )
@@ -603,7 +603,7 @@ function CurrencySelectModal({
     return filteredTokenList.map(renderTokenRow)
   }
 
-  function renderTokenRow({ address, symbol, name, balance, usdBalance }) {
+  function renderTokenRow({ address, symbol, name, balance, usdBalance }, showSpinner = true) {
     return (
       <TokenModalRow key={address} onClick={() => _onTokenSelect(address)}>
         <TokenRowLeft>
@@ -616,7 +616,7 @@ function CurrencySelectModal({
         <TokenRowRight>
           {balance ? (
             <TokenRowBalance>{balance && (balance > 0 || balance === '<0.0001') ? balance : '-'}</TokenRowBalance>
-          ) : account ? (
+          ) : account && showSpinner ? (
             <SpinnerWrapper src={Circle} alt="loader" />
           ) : (
             '-'
