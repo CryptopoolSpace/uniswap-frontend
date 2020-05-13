@@ -148,11 +148,8 @@ const noddingUnicorn = (
 )
 
 const menuLinks = [
-  <Link className={'link'} href="https://developer.offchainlabs.com">
-    <h1 id="title">Uniswap on Arbitrum</h1>
-  </Link>,
-  <Link className={'link'} href="http://uniswap-demo.offchainlabs.com/tokenbridge">
-    <h1 id="title">Token Bridge</h1>
+  <Link className={'link'} href="http://uniswap-demo.offchainlabs.com">
+    <h1 id="title">Arbiswap</h1>
   </Link>,
   <Link className={'link'} href="https://developer.offchainlabs.com">
     <h1 id="title">Arbitrum Documentation</h1>
