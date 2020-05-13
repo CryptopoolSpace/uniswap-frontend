@@ -140,6 +140,7 @@ export default function Bridge({ params = defaultBridgeParams }) {
     process.env.REACT_APP_ARB_VALIDATOR_URL,
     // new ethers.providers.Web3Provider(library.provider),
     new ethers.providers.Web3Provider(window.ethereum),
+    process.env.REACT_APP_ARB_AGGREGATOR_URL,
     0,
     true
   )
