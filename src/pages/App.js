@@ -8,6 +8,7 @@ import Footer from '../components/Footer'
 
 import NavigationTabs from '../components/NavigationTabs'
 import { isAddress, getAllQueryParams } from '../utils'
+import WelcomeModal from '../components/WelcomeModal'
 
 const Swap = lazy(() => import('./Swap'))
 const Send = lazy(() => import('./Send'))
@@ -59,6 +60,7 @@ export default function App() {
           </HeaderWrapper>
           <BodyWrapper>
             <Body>
+            <WelcomeModal/>
               <Web3ReactManager>
                 <HashRouter>
                   <NavigationTabs />
