@@ -4,6 +4,7 @@ import { useWeb3Context } from 'web3-react'
 import ERC20_ABI from '../constants/abis/erc20'
 import { getContract, getFactoryContract, getExchangeContract, isAddress } from '../utils'
 import copy from 'copy-to-clipboard'
+import { createBrowserHistory } from 'history'
 
 // modified from https://usehooks.com/useDebounce/
 export function useDebounce(value, delay) {
@@ -154,4 +155,11 @@ export function useCopyClipboard(timeout = 500) {
   }, [isCopied, setIsCopied, timeout])
 
   return [isCopied, staticCopy]
+}
+
+export function useClearBrowserQueries(pathname = '') {
+  useEffect(() => {
+    const history = createBrowserHistory()
+    history.push(`/#${pathname}`)
+  }, [pathname])
 }

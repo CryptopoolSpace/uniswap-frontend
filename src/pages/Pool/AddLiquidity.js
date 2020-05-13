@@ -12,7 +12,7 @@ import OversizedPanel from '../../components/OversizedPanel'
 import ContextualInfo from '../../components/ContextualInfo'
 import { ReactComponent as Plus } from '../../assets/images/plus-blue.svg'
 
-import { useExchangeContract } from '../../hooks'
+import { useExchangeContract, useClearBrowserQueries } from '../../hooks'
 import { amountFormatter, calculateGasMargin } from '../../utils'
 import { useTransactionAdder } from '../../contexts/Transactions'
 import { useTokenDetails } from '../../contexts/Tokens'
@@ -20,6 +20,7 @@ import { useFetchAllBalances } from '../../contexts/AllBalances'
 import { useAddressBalance, useExchangeReserves } from '../../contexts/Balances'
 import { useAddressAllowance } from '../../contexts/Allowances'
 
+import { withRouter } from 'react-router-dom'
 const INPUT = 0
 const OUTPUT = 1
 
@@ -198,15 +199,11 @@ function getMarketRate(reserveETH, reserveToken, decimals, invert = false) {
   return getExchangeRate(reserveETH, 18, reserveToken, decimals, invert)
 }
 
-export default function AddLiquidity({ params }) {
+function AddLiquidity({ params, location: { pathname = '' } }) {
   const { t } = useTranslation()
   const { library, active, account } = useWeb3Context()
 
-  // clear url of query
-  useEffect(() => {
-    const history = createBrowserHistory()
-    history.push(window.location.pathname + '')
-  }, [])
+  useClearBrowserQueries(pathname)
 
   const [addLiquidityState, dispatchAddLiquidityState] = useReducer(
     addLiquidityStateReducer,
@@ -668,3 +665,5 @@ export default function AddLiquidity({ params }) {
     </>
   )
 }
+
+export default withRouter(AddLiquidity)
