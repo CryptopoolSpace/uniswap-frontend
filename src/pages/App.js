@@ -8,6 +8,7 @@ import Footer from '../components/Footer'
 
 import NavigationTabs from '../components/NavigationTabs'
 import { isAddress, getAllQueryParams } from '../utils'
+import { baseURLName } from '../constants'
 
 const Swap = lazy(() => import('./Swap'))
 const Send = lazy(() => import('./Send'))
@@ -60,7 +61,7 @@ export default function App() {
           <BodyWrapper>
             <Body>
               <Web3ReactManager>
-                <BrowserRouter>
+                <BrowserRouter basename={`/${baseURLName}`}>
                   <NavigationTabs />
                   {/* this Suspense is for route code-splitting */}
                   <Suspense fallback={null}>
