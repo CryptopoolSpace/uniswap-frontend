@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 
 import { ReactComponent as EthereumLogo } from '../../assets/images/ethereum-logo.svg'
+import { ReactComponent as ArbiswapLogo } from '../../assets/images/arbitrum-pink.svg';
 
 const TOKEN_ICON_API = address =>
   `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/${address}/logo.png`
@@ -27,12 +28,18 @@ const StyledEthereumLogo = styled(EthereumLogo)`
   height: ${({ size }) => size};
 `
 
+const StyledArbiswapLogo = styled(ArbiswapLogo)`
+  width: ${({ size }) => size};
+  height: ${({ size }) => size};
+`
+
 export default function TokenLogo({ address, size = '1rem', ...rest }) {
   const [error, setError] = useState(false)
-
   let path = ''
   if (address === 'ETH') {
     return <StyledEthereumLogo size={size} />
+  } else if (address == process.env.REACT_APP_ARBISWAP_ADDRESS) {
+    return <StyledArbiswapLogo size={size} />
   } else if (!error && !BAD_IMAGES[address]) {
     path = TOKEN_ICON_API(address.toLowerCase())
   } else {
