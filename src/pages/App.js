@@ -1,6 +1,6 @@
 import React, { Suspense, lazy } from 'react'
 import styled from 'styled-components'
-import { HashRouter, Redirect, Route, Switch } from 'react-router-dom'
+import { Redirect, Route, Switch, BrowserRouter } from 'react-router-dom'
 
 import Web3ReactManager from '../components/Web3ReactManager'
 import Header from '../components/Header'
@@ -60,7 +60,7 @@ export default function App() {
           <BodyWrapper>
             <Body>
               <Web3ReactManager>
-                <HashRouter>
+                <BrowserRouter>
                   <NavigationTabs />
                   {/* this Suspense is for route code-splitting */}
                   <Suspense fallback={null}>
@@ -110,7 +110,7 @@ export default function App() {
                       <Redirect to="/arbitrum" />
                     </Switch>
                   </Suspense>
-                </HashRouter>
+                </BrowserRouter>
               </Web3ReactManager>
             </Body>
           </BodyWrapper>

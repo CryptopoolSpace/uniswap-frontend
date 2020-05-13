@@ -160,6 +160,6 @@ export function useCopyClipboard(timeout = 500) {
 export function useClearBrowserQueries(pathname = '') {
   useEffect(() => {
     const history = createBrowserHistory()
-    history.push(`/#${pathname}`)
+    history.push(pathname)
   }, [pathname])
 }
