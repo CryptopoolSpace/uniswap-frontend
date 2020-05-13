@@ -15,12 +15,13 @@ import OversizedPanel from '../OversizedPanel'
 import TransactionDetails from '../TransactionDetails'
 import ArrowDown from '../../assets/svg/SVGArrowDown'
 import { amountFormatter, calculateGasMargin } from '../../utils'
-import { useExchangeContract } from '../../hooks'
+import { useExchangeContract, useClearBrowserQueries } from '../../hooks'
 import { useTokenDetails } from '../../contexts/Tokens'
 import { useTransactionAdder } from '../../contexts/Transactions'
 import { useAddressBalance, useExchangeReserves } from '../../contexts/Balances'
 import { useFetchAllBalances } from '../../contexts/AllBalances'
 import { useAddressAllowance } from '../../contexts/Allowances'
+import { withRouter } from 'react-router'
 
 const INPUT = 0
 const OUTPUT = 1
@@ -244,7 +245,7 @@ function getMarketRate(
   }
 }
 
-export default function ExchangePage({ initialCurrency, sending = false, params }) {
+function ExchangePage({ initialCurrency, sending = false, params, location: { pathname='' } }) {
   const { t } = useTranslation()
   const { account } = useWeb3Context()
 
@@ -504,10 +505,7 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     t
   ])
 
-  useEffect(() => {
-    const history = createBrowserHistory()
-    history.push(window.location.pathname + '')
-  }, [])
+  useClearBrowserQueries(pathname)
 
   const [inverted, setInverted] = useState(false)
   const exchangeRate = getExchangeRate(inputValueParsed, inputDecimals, outputValueParsed, outputDecimals)
@@ -769,3 +767,5 @@ export default function ExchangePage({ initialCurrency, sending = false, params 
     </>
   )
 }
+
+export default withRouter(ExchangePage)

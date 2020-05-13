@@ -12,12 +12,13 @@ import ContextualInfo from '../../components/ContextualInfo'
 import OversizedPanel from '../../components/OversizedPanel'
 import ArrowDown from '../../assets/svg/SVGArrowDown'
 
-import { useExchangeContract } from '../../hooks'
+import { useExchangeContract, useClearBrowserQueries } from '../../hooks'
 import { useTransactionAdder } from '../../contexts/Transactions'
 import { useTokenDetails } from '../../contexts/Tokens'
 import { useAddressBalance } from '../../contexts/Balances'
 import { useFetchAllBalances } from '../../contexts/AllBalances'
 import { calculateGasMargin, amountFormatter } from '../../utils'
+import { withRouter } from 'react-router-dom'
 
 // denominated in bips
 const ALLOWED_SLIPPAGE = ethers.utils.bigNumberify(200)
@@ -142,17 +143,13 @@ function calculateSlippageBounds(value) {
   }
 }
 
-export default function RemoveLiquidity({ params }) {
+function RemoveLiquidity({ params, location: { pathname = '' } }) {
   const { library, account, active } = useWeb3Context()
   const { t } = useTranslation()
 
   const addTransaction = useTransactionAdder()
 
-  // clear url of query
-  useEffect(() => {
-    const history = createBrowserHistory()
-    history.push(window.location.pathname + '')
-  }, [])
+  useClearBrowserQueries(pathname)
 
   const [outputCurrency, setOutputCurrency] = useState(params.poolTokenAddress)
   const [value, setValue] = useState(params.poolTokenAmount ? params.poolTokenAmount : '')
@@ -431,3 +428,5 @@ export default function RemoveLiquidity({ params }) {
     </>
   )
 }
+
+export default withRouter(RemoveLiquidity)
