@@ -157,7 +157,7 @@ export default function Bridge({ params = defaultBridgeParams }) {
     0,
     true
   )
-  const unlockToken = bridge.token.adpprove
+  const unlockToken = bridge.token.approve
 
   const vmIdParsed = bridge.vmId.slice(0, 8) || '0x'
 
