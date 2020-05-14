@@ -144,18 +144,15 @@ export default function Bridge({ params = defaultBridgeParams }) {
     0,
     true
   )
-  const unlockToken = bridge.token.approve
+  const unlockToken = bridge.token.adpprove
 
   const vmIdParsed = bridge.vmId.slice(0, 8) || '0x'
 
   const transferTypeNames = {
-    [TransferType.toArb]: `Ethereum -> Arbitrum Rollup @ ${bridge.vmId}`,
-    [TransferType.fromArb]: ` Arbitrum ${bridge.vmId} -> Ethereum`
+    [TransferType.toArb]: `Deposit Ethereum (L1) into Arbitrum Rollup  (L2)`,
+    [TransferType.fromArb]: `Withdraw Arbitrum Rollup (L2) back to Ethereum (L1)`
   }
-  const transferTypeNamesTrimmed = {
-    [TransferType.toArb]: `Ethereum -> Arbitrum Rollup @ ${vmIdParsed}...`,
-    [TransferType.fromArb]: ` Arbitrum ${vmIdParsed}... -> Ethereum`
-  }
+  const transferTypeNamesTrimmed = transferTypeNames
 
   const combinedEthDetails = {
     [ETH_TOKEN]: {
@@ -314,7 +311,6 @@ export default function Bridge({ params = defaultBridgeParams }) {
       .reduce((total, current) => total.add(current), ethers.constants.Zero)
   }
   useUpdateFundsMessage(bridge, balances)
-
   return (
     <>
       <OversizedPanel hideTop>
@@ -346,11 +342,11 @@ export default function Bridge({ params = defaultBridgeParams }) {
       </OversizedPanel>
 
       <CurrencyInputPanel
-        title={translated('input')}
+        title={`From ${inputName}`}
         // description={<CurrencyInputDescription children={`from ${inputName}`} />}
         allBalances={inputDetails}
         allTokens={inputDetails}
-        extraText={`${inputName} balance: ${inputBalanceFormatted}`}
+        extraText={`Balance on ${inputName}: ${inputBalanceFormatted}`}
         extraTextClickHander={() => setTransferValue(inputBalanceFormatted)}
         onValueChange={handleInput}
         showUnlock={showInputUnlock}
@@ -379,11 +375,11 @@ export default function Bridge({ params = defaultBridgeParams }) {
       </OversizedPanel>
 
       <CurrencyInputPanel
-        title={translated('output')}
+            title={`To ${outputName}`}
         // description={<CurrencyInputDescription children={`to ${outputName}`} />}
         allBalances={inputDetails}
         allTokens={inputDetails}
-        extraText={`${outputName} balance: ${outputBalanceFormatted}`}
+        extraText={`Balance on ${outputName}: ${outputBalanceFormatted}`}
         extraTextClickHander={() => setTransferValue(outputBalanceFormatted)}
         disableTokenSelect
         hideTokenSelect
@@ -435,7 +431,7 @@ export default function Bridge({ params = defaultBridgeParams }) {
       <ButtonContainer>
         <Button disabled={isLoading} onClick={handleButtonClick} warning={!!errorMessage}>
           {/* text should provide destination context */}
-          {isLoading ? <Spinner src={Circle} alt={'Loading...'} /> : translated(`Transfer to ${outputName} Wallet`)}
+          {isLoading ? <Spinner src={Circle} alt={'Loading...'} /> : transferType === TransferType.toArb ? 'Deposit' : "Withdraw"}
         </Button>
       </ButtonContainer>
     </>
