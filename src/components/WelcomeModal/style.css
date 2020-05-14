@@ -1,17 +1,49 @@
 html {
-    --car-color: #DC6BE5;
+    --car-color: #27AE60;
   }
   
 .carousel-cont{
     width: 90%;
     position: relative;
+    font-family: Arial sans-serif;
+    /* border:3px dotted blue; */
+    height: 450px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 .rec-swipable-null{
-    height: 300px;
+    /* height: 300px; */
 }
 .rec-arrow{
-    background-color: var(--car-color);
+    /* background-color: var(--car-color); */
 }
 .rec-dot{
-    background-color: var(--car-color);
+    /* background-color: var(--car-color); */
+}
+
+.welcome--slide-image{
+    min-width: 400px;
+    max-height: 250px;
+    margin-top: 10px;
+}
+
+.welcome--slide-container {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    /* width: 100%; */
+}
+.welcome--slide-text{
+    /* width: 400px; */
+    font-size: 20px;
+    margin-bottom: 10px;
+    height: 50px;
+    display: flex;
+}
+.welcome--image-container{
+    /* height: 35px; */
+}
+.rec-pagination{
+    
 }

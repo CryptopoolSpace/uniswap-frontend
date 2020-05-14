@@ -29,7 +29,7 @@ function WelcomeModal() {
 
   const closeModal = () => setModalIsOpen(false)
   return (
-    <Modal isOpen={isOpen} onDismiss={closeModal}>
+    <Modal isOpen={isOpen} onDismiss={closeModal} minHeight={'75'}>
       <ModalContainer>
         <ModalHeader>Arbiswap</ModalHeader>
         <Carousel />

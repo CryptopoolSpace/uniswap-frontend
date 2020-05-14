@@ -5,14 +5,19 @@ import ImageSlide from './ImageSlide'
 function WelcomeCarousel() {
   const carouselRef = useRef(null)
 
+  const [autoPlayEnabled, setAutoPlay] = useState(true)
+  const disableAutoPlay = () => setAutoPlay(false)
+
   function handleArrowPress(e) {
     e.stopPropagation()
     switch (e.keyCode) {
       case 37:
         carouselRef.current.slidePrev()
+        disableAutoPlay()
         break
       case 39:
         carouselRef.current.slideNext()
+        disableAutoPlay()
         break
       default:
         break
@@ -24,25 +29,40 @@ function WelcomeCarousel() {
     return () => {
       document.removeEventListener('keydown', handleArrowPress)
     }
-  }, [])
+  }, [handleArrowPress])
 
+  const config = {
+    enableAutoPlay: autoPlayEnabled,
+    autoPlaySpeed: 5000,
+    itmesToShow: 1
+  }
   return (
-    <Carousel ref={carouselRef} className="carousel-cont" itemsToShow={1}>
-      <ImageSlide
-        text={'Welcome to Arbiswap! To get started, install metamask, and connect to ropsten'}
-        imageUrl={'https://www.placecage.com/g/200/300'}
-      />
-      <ImageSlide
-        text={
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip e'
-        }
-        imageUrl={'https://www.placecage.com/200/300'}
-      />
+    <Carousel
+      onNextStart={disableAutoPlay}
+      onPrevStart={disableAutoPlay}
+      {...config}
+      ref={carouselRef}
+      className="carousel-cont"
+    >
       <ImageSlide
         text={
-          ' vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi'
+          <span>
+            'Welcome to Arbiswap! To get started,{' '}
+            <a target="_blank" href="https://metamask.io/">
+              install metamask
+            </a>{' '}
+            , asdf asdf sadf sadf sad sadf saf sadf sadf and connect to ropsten'{' '}
+          </span>
         }
-        imageUrl={'https://www.placecage.com/c/200/300'}
+        imageUrl={'https://picsum.photos/200/300'}
+      />
+      <ImageSlide
+        text={<span> If you need tokens, tweet at us</span>}
+        imageUrl={'https://picsum.photos/seed/200/300'}
+      />
+      <ImageSlide
+        text={<span>'Otherwise, deposit some directly onto layer two'</span>}
+        imageUrl={'https://picsum.photos/200/300'}
       />
     </Carousel>
   )

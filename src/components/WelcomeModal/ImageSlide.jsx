@@ -2,11 +2,10 @@ import React from 'react'
 
 function ImageSlide({ text, imageUrl }) {
   return (
-    <div>
-      <div> {text}</div>
-      <div>
-        <img src={imageUrl} alt="" />
-      </div>
+    <div className="welcome--slide-container">
+      <div className="welcome--slide-text"> {text}</div>
+      <img className="welcome--slide-image" src={imageUrl} alt="" />
+      <div className="welcome--image-container"></div>
     </div>
   )
 }
