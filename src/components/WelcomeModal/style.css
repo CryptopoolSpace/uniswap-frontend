@@ -1,0 +1,17 @@
+html {
+    --car-color: #DC6BE5;
+  }
+  
+.carousel-cont{
+    width: 90%;
+    position: relative;
+}
+.rec-swipable-null{
+    height: 300px;
+}
+.rec-arrow{
+    background-color: var(--car-color);
+}
+.rec-dot{
+    background-color: var(--car-color);
+}
