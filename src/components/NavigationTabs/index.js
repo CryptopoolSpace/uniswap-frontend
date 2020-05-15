@@ -108,6 +108,9 @@ const StyledNavLink = styled(NavLink).attrs({
     color: ${({ theme }) => darken(0.1, theme.royalBlue)};
   }
 `
+const FundMessageWrapper = styled.div`
+  min-height: 52px;
+`
 
 function NavigationTabs({ location: { pathname }, history }) {
   const { t } = useTranslation()
@@ -134,8 +137,10 @@ function NavigationTabs({ location: { pathname }, history }) {
 
   return (
     <>
-      {fundsMessageState === fundsMessagesEnum.SHOW_REQUEST && <TwitterShare />}
-      {fundsMessageState === fundsMessagesEnum.SHOW_RECEIVED && <FundsReceived />}
+      <FundMessageWrapper>
+        {fundsMessageState === fundsMessagesEnum.SHOW_REQUEST && <TwitterShare />}
+        {fundsMessageState === fundsMessagesEnum.SHOW_RECEIVED && <FundsReceived />}
+      </FundMessageWrapper>
       <Tabs>
         {tabOrder.map(({ path, textKey, regex }) => (
           <StyledNavLink key={path} to={path} isActive={(_, { pathname }) => pathname.match(regex)}>

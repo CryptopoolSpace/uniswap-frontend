@@ -19,6 +19,7 @@ import { amountFormatter, getEtherscanLink } from '../../utils'
 import { ColoredDropdown } from '../Pool/ModeSelector'
 import { useUpdateFundsMessage } from '../../contexts/FundsMessage'
 import { Link } from '../../theme'
+const arbTokenAddress = process.env.REACT_APP_ARBISWAP_ADDRESS
 
 const defaultBridgeParams = {}
 
@@ -324,6 +325,15 @@ export default function Bridge({ params = defaultBridgeParams }) {
       .reduce((total, current) => total.add(current), ethers.constants.Zero)
   }
   useUpdateFundsMessage(bridge, balances)
+
+  useEffect(() => {
+    if (!bridge.walletAddress || !bridge.vmId) return
+    if (!bridge.cache.erc20.includes(arbTokenAddress)) {
+      console.info('Adding arbiswap token to cache:')
+      bridge.token.add(arbTokenAddress, 'ERC20')
+    }
+  }, [bridge.walletAddress, bridge.vmId, bridge.cache.erc20, bridge.token])
+
   return (
     <>
       <OversizedPanel hideTop>
