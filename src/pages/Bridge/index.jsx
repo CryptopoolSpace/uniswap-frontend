@@ -15,10 +15,12 @@ import CurrencyInputPanel from '../../components/CurrencyInputPanel'
 import OversizedPanel from '../../components/OversizedPanel'
 import Modal from '../../components/Modal'
 import { DownArrow, DownArrowBackground } from '../../components/ExchangePage'
-import { amountFormatter } from '../../utils'
+import { amountFormatter, getEtherscanLink } from '../../utils'
 import { ColoredDropdown } from '../Pool/ModeSelector'
 import { useUpdateFundsMessage } from '../../contexts/FundsMessage'
+import { Link } from '../../theme'
 const arbTokenAddress = process.env.REACT_APP_ARBISWAP_ADDRESS
+
 const defaultBridgeParams = {}
 
 const TransferTypeSelection = styled.div`
@@ -95,6 +97,15 @@ const PanelRow = styled.div`
   font-size: 0.75rem;
   padding: 0.25rem 1rem;
 `
+const PanelRow2 = styled.div`
+  ${({ theme }) => theme.flexRowNoWrap};
+  color: ${({ theme }) => theme.doveGray};
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  padding: 0.25rem 1rem;
+  border-top: ${({ theme }) => '1px solid #333639;'};
+`
 
 const WithdrawLockBoxBtn = styled.span`
   border: 1px solid ${({ theme }) => theme.royalBlue};
@@ -128,6 +139,8 @@ const ETH_TOKEN = 'ETH'
 
 // TODO symbol image search overrides for each symbol if possible
 export default function Bridge({ params = defaultBridgeParams }) {
+
+  const { networkId } = useWeb3Context()
   const [transferType, setTransferType] = useState(TransferType.toArb)
   const [transferValue, setTransferValue] = useState('0.0')
   let [selectedToken, setToken] = useState(ETH_TOKEN)
@@ -150,13 +163,10 @@ export default function Bridge({ params = defaultBridgeParams }) {
   const vmIdParsed = bridge.vmId.slice(0, 8) || '0x'
 
   const transferTypeNames = {
-    [TransferType.toArb]: `Ethereum -> Arbitrum Rollup @ ${bridge.vmId}`,
-    [TransferType.fromArb]: ` Arbitrum ${bridge.vmId} -> Ethereum`
+    [TransferType.toArb]: `Deposit from Ethereum (L1) into Arbitrum Rollup  (L2)`,
+    [TransferType.fromArb]: `Withdraw from Arbitrum Rollup (L2) back to Ethereum (L1)`
   }
-  const transferTypeNamesTrimmed = {
-    [TransferType.toArb]: `Ethereum -> Arbitrum Rollup @ ${vmIdParsed}...`,
-    [TransferType.fromArb]: ` Arbitrum ${vmIdParsed}... -> Ethereum`
-  }
+  const transferTypeNamesTrimmed = transferTypeNames
 
   const combinedEthDetails = {
     [ETH_TOKEN]: {
@@ -315,6 +325,7 @@ export default function Bridge({ params = defaultBridgeParams }) {
       .reduce((total, current) => total.add(current), ethers.constants.Zero)
   }
   useUpdateFundsMessage(bridge, balances)
+
   useEffect(() => {
     if (!bridge.walletAddress || !bridge.vmId) return
     if (!bridge.cache.erc20.includes(arbTokenAddress)) {
@@ -354,11 +365,11 @@ export default function Bridge({ params = defaultBridgeParams }) {
       </OversizedPanel>
 
       <CurrencyInputPanel
-        title={translated('input')}
+        title={`From ${inputName}`}
         // description={<CurrencyInputDescription children={`from ${inputName}`} />}
         allBalances={inputDetails}
         allTokens={inputDetails}
-        extraText={`${inputName} balance: ${inputBalanceFormatted}`}
+        extraText={`Balance on ${inputName}: ${inputBalanceFormatted}`}
         extraTextClickHander={() => setTransferValue(inputBalanceFormatted)}
         onValueChange={handleInput}
         showUnlock={showInputUnlock}
@@ -387,11 +398,11 @@ export default function Bridge({ params = defaultBridgeParams }) {
       </OversizedPanel>
 
       <CurrencyInputPanel
-        title={translated('output')}
+        title={`To ${outputName}`}
         // description={<CurrencyInputDescription children={`to ${outputName}`} />}
         allBalances={inputDetails}
         allTokens={inputDetails}
-        extraText={`${outputName} balance: ${outputBalanceFormatted}`}
+        extraText={`Balance on ${outputName}: ${outputBalanceFormatted}`}
         extraTextClickHander={() => setTransferValue(outputBalanceFormatted)}
         disableTokenSelect
         hideTokenSelect
@@ -436,14 +447,17 @@ export default function Bridge({ params = defaultBridgeParams }) {
                 children={isLoading ? <Spinner src={Circle} alt={'Loading...'} /> : 'Withdraw'}
               />
             )}
-          </PanelRow>
+          </PanelRow>       
+          <PanelRow2>
+            <span>Arbitrum Chain address: <Link href={getEtherscanLink(networkId, bridge.vmId, 'address')}>{bridge.vmId}</Link> </span>
+          </PanelRow2>
         </DetailRows>
       </OversizedPanel>
 
       <ButtonContainer>
         <Button disabled={isLoading} onClick={handleButtonClick} warning={!!errorMessage}>
           {/* text should provide destination context */}
-          {isLoading ? <Spinner src={Circle} alt={'Loading...'} /> : translated(`Transfer to ${outputName} Wallet`)}
+          {isLoading ? <Spinner src={Circle} alt={'Loading...'} /> : transferType === TransferType.toArb ? 'Deposit' : "Withdraw"}
         </Button>
       </ButtonContainer>
     </>
