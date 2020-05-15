@@ -1,13 +1,10 @@
 import React, { createContext, useContext, useReducer, useMemo, useCallback, useState, useEffect } from 'react'
 import { ethers } from 'ethers'
 
+const arbTokenAddress = process.env.REACT_APP_ARBISWAP_ADDRESS
+
 const ZERO = ethers.utils.bigNumberify(0)
 
-const FundsMessageContext = createContext()
-
-export function useFundsMessageContext() {
-  return useContext(FundsMessageContext)
-}
 export const fundsMessagesEnum = {
   LOADING: 'loading',
   SHOW_REQUEST: 'show_request',
@@ -15,13 +12,14 @@ export const fundsMessagesEnum = {
   SHOW_NONE: 'show_none'
 }
 
-const arbTokenAddress = process.env.REACT_APP_ARBISWAP_ADDRESS
+const FundsMessageContext = createContext(fundsMessagesEnum.LOADING)
+
+export function useFundsMessageContext() {
+  return useContext(FundsMessageContext)
+}
+
 function needsFunds(balances) {
-  return ( 
-    balances.eth.arbChainBalance.eq(0) || 
-    !balances.erc20[arbTokenAddress] ||
-    balances.erc20[arbTokenAddress].arbChainBalance.eq(0)
-  )
+  return balances.eth.arbChainBalance.eq(0) || balances.erc20[arbTokenAddress].arbChainBalance.eq(0)
 }
 
 export function useUpdateFundsMessage(bridge, balances) {
@@ -29,15 +27,15 @@ export function useUpdateFundsMessage(bridge, balances) {
   const [state, update] = useFundsMessageContext()
 
   useEffect(() => {
-    if (!bridge.vmId || !bridge.walletAddress) return
+    if (!bridge.vmId || !bridge.walletAddress || !balances.erc20[arbTokenAddress]) return
     switch (state) {
       case fundsMessagesEnum.LOADING: {
         if (!needsFunds(balances)) {
           update(fundsMessagesEnum.SHOW_NONE)
         } else {
           // if init balance is zero, request directly to determine funds at initial load
-          balances.update().then( ([eth, {erc20}]) => {
-            if (!needsFunds({eth, erc20})) {
+          balances.update().then(([eth, { erc20 }]) => {
+            if (!needsFunds({ eth, erc20 })) {
               update(fundsMessagesEnum.SHOW_NONE)
             } else {
               update(fundsMessagesEnum.SHOW_REQUEST)
@@ -55,7 +53,7 @@ export function useUpdateFundsMessage(bridge, balances) {
       default:
         break
     }
-  }, [balances.eth.balance, bridge.eth, bridge.vmId, bridge.walletAddress, state, update])
+  }, [balances, bridge.vmId, bridge.walletAddress, state, update])
 }
 
 export default function Provider({ children }) {
