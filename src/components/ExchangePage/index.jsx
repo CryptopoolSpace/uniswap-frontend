@@ -543,7 +543,7 @@ function ExchangePage({ initialCurrency, sending = false, params, location: { pa
 
   const estimatedText = `(${t('estimated')})`
   function formatBalance(value) {
-    return `Balance: ${value}`
+    return `Balance on Arbitrum: ${value}`
   }
 
   async function onSwap() {

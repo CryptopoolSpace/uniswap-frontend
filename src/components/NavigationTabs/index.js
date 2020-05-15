@@ -11,7 +11,7 @@ import { useFundsMessageContext, fundsMessagesEnum } from '../../contexts/FundsM
 const tabOrder = [
   {
     path: '/arbitrum',
-    textKey: 'Arbitrum',
+    textKey: 'Deposit / Withdraw',
     regex: /\/arbitrum/
   },
   {

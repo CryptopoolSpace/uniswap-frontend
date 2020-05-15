@@ -410,7 +410,7 @@ function AddLiquidity({ params, location: { pathname = '' } }) {
   }
 
   function formatBalance(value) {
-    return `Balance: ${value}`
+    return `Balance on Arbitrum: ${value}`
   }
 
   useEffect(() => {
