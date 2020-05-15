@@ -18,7 +18,7 @@ import { DownArrow, DownArrowBackground } from '../../components/ExchangePage'
 import { amountFormatter } from '../../utils'
 import { ColoredDropdown } from '../Pool/ModeSelector'
 import { useUpdateFundsMessage } from '../../contexts/FundsMessage'
-const arbTokenAddress = process.env.REACT_APP_ARBISWAP_ADDRES
+const arbTokenAddress = process.env.REACT_APP_ARBISWAP_ADDRESS
 const defaultBridgeParams = {}
 
 const TransferTypeSelection = styled.div`
