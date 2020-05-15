@@ -16,6 +16,8 @@ import Circle from '../../assets/images/circle.svg'
 
 const { Connector } = Connectors
 
+const l1networkId = process.env.REACT_APP_L1_NETWORK_ID || '3'
+
 const Web3StatusGeneric = styled.button`
   ${({ theme }) => theme.flexRowNoWrap}
   width: 100%;
@@ -133,7 +135,7 @@ function walletModalReducer(state, { type, payload }) {
 
 export default function Web3Status() {
   const { t } = useTranslation()
-  const { active, account, connectorName, setConnector } = useWeb3Context()
+  const { active, account, connectorName, setConnector, networkId } = useWeb3Context()
 
   const ENSName = useENSName(account)
 
@@ -249,6 +251,15 @@ export default function Web3Status() {
       )
     }
   }
+
+  useEffect(() => {
+    const { ethereum } = window
+    if (ethereum && ethereum.networkVersion != l1networkId) {
+      const error = new Error('Unsupported Network')
+      error.code = Connector.errorCodes.UNSUPPORTED_NETWORK
+      setError(error)
+    }
+  }, [])
 
   return (
     active && (
