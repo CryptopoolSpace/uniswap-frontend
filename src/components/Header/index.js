@@ -5,6 +5,7 @@ import { Link } from '../../theme'
 import Web3Status from '../Web3Status'
 import { darken } from 'polished'
 import { slide as MobileMenu } from 'react-burger-menu'
+import logo from '../../assets/images/arbiswap2.png';
 
 const HeaderFrame = styled.div`
   display: flex;
@@ -23,6 +24,13 @@ const Nod = styled.span`
 
   :hover {
     transform: rotate(-10deg);
+  }
+
+  #arbiswaplogo {
+    max-width:100%;
+    max-height:100%;
+    height: 2em;
+    width: auto;
   }
 `
 
@@ -84,7 +92,7 @@ const MobileTitle = styled.div`
   ${({ theme }) => theme.mediaWidth.upToMedium`
     display: initial;
     position: relative;
-    left: 300%; /* offset needed to center */
+    left: 0%; /* offset needed to center */
   `}
 `
 
@@ -141,14 +149,14 @@ const MobileMenuStyles = styled.span`
 
 const noddingUnicorn = (
   <Nod className={'unicorn'}>
-    <Link className={'link'} href="https://uniswap.io">
-      <span role="img" aria-label="unicorn" children={'🦄'} />
+    <Link className={'link'} href="link to blog post">
+      <img src={logo} id="arbiswaplogo" alt="Logo" />
     </Link>
   </Nod>
 )
 
 const menuLinks = [
-  <Link className={'link'} href="http://uniswap-demo.offchainlabs.com">
+  <Link className={'link'} href="link to blog post">
     <h1 id="title">Arbiswap</h1>
   </Link>,
   <Link className={'link'} href="https://developer.offchainlabs.com">
@@ -164,7 +172,7 @@ export default function Header() {
   ))
 
   const defaultMenuLinks = [noddingUnicorn, ...menuLinks].reduce((result, el, idx) => {
-    if (idx !== 0) {
+    if (idx > 1) {
       result.push(<Divider key={idx - 0.5} children={'|'} />)
     }
     result.push({ ...el, key: idx })

@@ -15,7 +15,7 @@ export const fundsMessagesEnum = {
   SHOW_NONE: 'show_none'
 }
 
-const arbTokenAddress = "0x716f0d674efeeca329f141d0ca0d97a98057bdbf"
+const arbTokenAddress = process.env.REACT_APP_ARBISWAP_ADDRESS
 function needsFunds(balances) {
   return ( 
     balances.eth.arbChainBalance.eq(0) || 

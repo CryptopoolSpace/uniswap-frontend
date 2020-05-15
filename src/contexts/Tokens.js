@@ -447,7 +447,7 @@ const INITIAL_TOKENS_CONTEXT = {
     }
   },
   123456789: {
-    '0x716f0d674efeeca329f141d0ca0d97a98057bdbf': {
+    [process.env.REACT_APP_ARBISWAP_ADDRESS]: {
       [NAME]: 'Arbiswap Test Token',
       [SYMBOL]: 'SWAP',
       [DECIMALS]: 18,
