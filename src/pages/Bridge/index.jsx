@@ -140,7 +140,7 @@ const ETH_TOKEN = 'ETH'
 // TODO symbol image search overrides for each symbol if possible
 export default function Bridge({ params = defaultBridgeParams }) {
 
-  const { networkId } = useWeb3Context()
+  const l1NetworkId = window.ethereum.networkVersion
   const [transferType, setTransferType] = useState(TransferType.toArb)
   const [transferValue, setTransferValue] = useState('0.0')
   let [selectedToken, setToken] = useState(ETH_TOKEN)
@@ -449,7 +449,7 @@ export default function Bridge({ params = defaultBridgeParams }) {
             )}
           </PanelRow>       
           <PanelRow2>
-            <span>Arbitrum Chain address: <Link href={getEtherscanLink(networkId, bridge.vmId, 'address')}>{bridge.vmId}</Link> </span>
+            <span>Arbitrum Chain address: <Link href={getEtherscanLink(l1NetworkId, bridge.vmId, 'address')}>{bridge.vmId}</Link> </span>
           </PanelRow2>
         </DetailRows>
       </OversizedPanel>
