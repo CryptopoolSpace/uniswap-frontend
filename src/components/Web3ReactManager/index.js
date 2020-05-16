@@ -87,9 +87,21 @@ export default function Web3ReactManager({ children }) {
   if (blockRender) {
     return null
   } else if (error) {
+    let message
+    switch (error.name) {
+      case 'AccountChange':
+        message = 'Account changed, refreshing page. Sit tight!'
+        break
+      case 'NetworkChange':
+        message = 'Network changed, refreshing page. Sit tight!'
+        break
+      default:
+        message = t('unknownError')
+        break
+    }
     return (
       <MessageWrapper>
-        <Message>{t('unknownError')}</Message>
+        <Message>{message}</Message>
       </MessageWrapper>
     )
   } else if (!active) {

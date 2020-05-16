@@ -78,7 +78,6 @@ export default class InjectedConnector extends ErrorCodeMixin(Connector, Injecte
   // event handlers
   networkChangedHandler(networkId) {
     const networkIdNumber = Number(networkId)
-
     try {
       super._validateNetworkId(networkIdNumber)
 
@@ -87,7 +86,10 @@ export default class InjectedConnector extends ErrorCodeMixin(Connector, Injecte
         networkId: networkIdNumber
       })
     } catch (error) {
-      super._web3ReactErrorHandler(error)
+      window.location.reload()
+      const err = new Error('Network Change Error')
+      err.name = 'NetworkChange'
+      super._web3ReactErrorHandler(err)
     }
   }
 
@@ -97,10 +99,10 @@ export default class InjectedConnector extends ErrorCodeMixin(Connector, Injecte
       unlockRequiredError.code = InjectedConnector.errorCodes.UNLOCK_REQUIRED
       super._web3ReactErrorHandler(unlockRequiredError)
     } else {
-      super._web3ReactUpdateHandler({
-        updateAccount: true,
-        account: accounts[0]
-      })
+      window.location.reload()
+      const err = new Error('Account change error')
+      err.name = 'AccountChange'
+      super._web3ReactErrorHandler(err)
     }
   }
 }
