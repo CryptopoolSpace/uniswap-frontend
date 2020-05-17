@@ -42,7 +42,7 @@ export function getEtherscanLink(networkId, data, type) {
 
   switch (type) {
     case 'transaction': {
-      // transactions just link to rollup address? getQueryParam(window.location, '')
+      // transactions just link to rollup address?
       return `${prefix}/address/0xdd85b046ba8e450223d66028d123a828a7e11c19`
     }
     case 'address':
