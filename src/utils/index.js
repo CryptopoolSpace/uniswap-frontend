@@ -35,11 +35,15 @@ const ETHERSCAN_PREFIXES = {
 }
 
 export function getEtherscanLink(networkId, data, type) {
+  // overwrite Arb overlay network id with Ropsten:
+  networkId = 3
+  
   const prefix = `https://${ETHERSCAN_PREFIXES[networkId] || ETHERSCAN_PREFIXES[1]}etherscan.io`
 
   switch (type) {
     case 'transaction': {
-      return `${prefix}/tx/${data}`
+      // transactions just link to rollup address? getQueryParam(window.location, '')
+      return `${prefix}/address/0xdd85b046ba8e450223d66028d123a828a7e11c19`
     }
     case 'address':
     default: {
