@@ -23,15 +23,20 @@ html {
 }
 
 .welcome--slide-image{
-    min-width: 400px;
-    /* max-height: 500px; */
-    margin-top: 10px;
+    /* min-width: 400px; */
+    width: 400px;
+    height: auto;
+}
+
+.welcome--slide-image-wrapper{
+    display: flex;
+    justify-content: center;
 }
 
 .welcome--slide-container {
     display: flex;
     flex-direction: column;
-    width: 500px;
+    /* width: 500px; */
     /* width: 100%; */
 }
 .welcome--slide-text{
@@ -39,12 +44,13 @@ html {
     font-size: 20px;
     margin-bottom: 10px;
     min-height: 100px;
-    display: flex;
+    /* display: flex; */
     /* border: 1px solid blue; */
 
 }
 .welcome--image-container{
     /* height: 35px; */
+    display: flex;
 }
 .rec-pagination{
     

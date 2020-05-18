@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { useWeb3Context } from 'web3-react'
-import { TwitterShareButton } from 'react-twitter-embed'
 import { transparentize } from 'polished'
+import TweetButton from './TweetButton'
 
 const TweetFaucetMessage = styled.div`
   ${({ theme }) => theme.flexRowNoWrap}
@@ -47,14 +47,7 @@ const TwitterShare = () => {
       {showTweetShare && (
         <TweetFaucetMessage>
           <span> Use your own Ropsten Ether/tokens, or </span>
-          <TwitterShareButton
-            options={{
-              text: `hey @OffChainLabs, gimmie some tokens plsz: ${account || '0xyouraddresshere'} `,
-              size: 'small'
-            }}
-            url={'.'}
-            placeholder={'Tweet'}
-          />
+          <TweetButton/>
           <span>{"us and we'll send you some!"}</span>
           <span onClick={hideTweetShare} className="close">
             ✕
