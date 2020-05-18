@@ -1,5 +1,5 @@
 import Modal from '../Modal'
-import React, { useState } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { useLocalStorage } from '@rehooks/local-storage'
 import styled from 'styled-components'
 import './style.css'
@@ -24,12 +24,23 @@ const ModalHeader = styled.div`
   font-size: 30px;
 `
 function WelcomeModal() {
-  // const [isOpen, setModalIsOpen] = useLocalStorage('welcomeModal', true)
-  const [isOpen, setModalIsOpen] = useState(true)
+  const [shouldOpenModalCache, setShouldOpenModalCache] = useLocalStorage('welcomeModal', true)
+  const [isOpen, setModalIsOpen] = useState(false)
 
-  const closeModal = () => setModalIsOpen(false)
+  useEffect(()=>{
+    shouldOpenModalCache && window.setTimeout(()=>{
+      setModalIsOpen(true)
+    }, 1000)
+  },[])
+
+
+  const onDismiss = useCallback(()=>{
+    setModalIsOpen(false);
+    shouldOpenModalCache && setShouldOpenModalCache(false)
+  },[shouldOpenModalCache])
+
   return (
-    <Modal isOpen={isOpen} onDismiss={closeModal} minHeight={'75'}>
+    <Modal isOpen={isOpen} onDismiss={onDismiss} minHeight={'75'}>
       <ModalContainer>
         <ModalHeader>Arbiswap</ModalHeader>
         <Carousel />
