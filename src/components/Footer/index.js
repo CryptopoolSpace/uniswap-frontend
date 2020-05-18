@@ -83,8 +83,14 @@ export default function Footer() {
           <Link id="link" href="https://developer.offchainlabs.com/docs/Developer_Quickstart/">
             <h1 id="title">Docs</h1>
           </Link>
+          <Link id="link" href="https://github.com/OffchainLabs/arbitrum">
+            <h1 id="title">Arbitrum Code</h1>
+          </Link>
+          <Link id="link" href="https://github.com/OffchainLabs/uniswap-solidity">
+            <h1 id="title">Arbiswap Backend</h1>
+          </Link>
           <Link id="link" href="https://github.com/OffchainLabs/uniswap-frontend">
-            <h1 id="title">Code</h1>
+            <h1 id="title">Arbiswap Frontend</h1>
           </Link>
         </Title>
       </FooterElement>
