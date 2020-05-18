@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import Carousel from 'react-elastic-carousel'
 import ImageSlide from './ImageSlide'
-
+import WrongNetworkGif from '../../assets/gifs/wrong-network.gif'
 function WelcomeCarousel() {
   const carouselRef = useRef(null)
 
@@ -48,13 +48,13 @@ function WelcomeCarousel() {
         text={
           <span>
             'Welcome to Arbiswap! To get started,{' '}
-            <a target="_blank" href="https://metamask.io/">
+            <a target="_blank" href="https://metamask.io/download.html">
               install metamask
             </a>{' '}
-            , asdf asdf sadf sadf sad sadf saf sadf sadf and connect to ropsten'{' '}
+            , asdf asdf sadf sadf sad sadf saf sadf sadf and connect to ropsten' ad sadf saf sadf sadfad sadf saf sadf sadfad sadf saf sadf sadfad sadf saf sadf sadf{' '}
           </span>
         }
-        imageUrl={'https://picsum.photos/200/300'}
+        imageUrl={WrongNetworkGif}
       />
       <ImageSlide
         text={<span> If you need tokens, tweet at us</span>}

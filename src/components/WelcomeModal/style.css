@@ -3,7 +3,7 @@ html {
   }
   
 .carousel-cont{
-    width: 90%;
+    width: 95%;
     position: relative;
     font-family: Arial sans-serif;
     /* border:3px dotted blue; */
@@ -24,7 +24,7 @@ html {
 
 .welcome--slide-image{
     min-width: 400px;
-    max-height: 250px;
+    /* max-height: 500px; */
     margin-top: 10px;
 }
 
@@ -38,8 +38,10 @@ html {
     /* width: 400px; */
     font-size: 20px;
     margin-bottom: 10px;
-    height: 50px;
+    min-height: 100px;
     display: flex;
+    /* border: 1px solid blue; */
+
 }
 .welcome--image-container{
     /* height: 35px; */
