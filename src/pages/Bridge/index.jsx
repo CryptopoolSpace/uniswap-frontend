@@ -421,9 +421,9 @@ export default function Bridge({ params = defaultBridgeParams }) {
               ) : null}
               <Tooltip
                 label={
-                  <span>
-                    When withdrawing tokens from an Arbitrum Rollup, they are held in a smart contract lock box. You
-                    must withdraw them from this lockbox to your Ethereum wallet.
+                  <span> 
+                    When withdrawing tokens from an Arbitrum Rollup, the withdrawal will be in a "pending" state during a "challenge period" of roughly 3 hours. 
+                    After that the tokens will be available to you on layer 1 in your lockbox. Click to read more.                 
                   </span>
                 }
                 style={{
@@ -438,7 +438,9 @@ export default function Bridge({ params = defaultBridgeParams }) {
                   whiteSpace: 'normal'
                 }}
               >
-                <StyledQuestionMark />
+                <a target="_blank" href="https://medium.com/offchainlabs/optimizing-challenge-periods-in-rollup-b61378c87277">
+                  <StyledQuestionMark />
+                </a>
               </Tooltip>
             </span>
             {lockBoxBalance > 0 && (
