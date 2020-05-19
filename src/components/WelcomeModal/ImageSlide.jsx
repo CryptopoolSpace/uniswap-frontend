@@ -15,6 +15,7 @@ const WelcomeText = styled.div`
   font-size: 18px;
   margin-bottom: 10px;
   min-height: 100px;
+  line-height: 27px;
 `
 const WelcomeSliderContainer = styled.div`
   display: flex;

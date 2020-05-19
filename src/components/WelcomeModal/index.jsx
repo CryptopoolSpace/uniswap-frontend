@@ -10,18 +10,9 @@ const ModalContainer = styled.div`
   display: flex;
   align-items: center;
   width: 100%;
+  padding-top: 60px;
 `
 
-const ModalHeader = styled.div`
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  padding: 0px 0px 0px 1rem;
-  height: 60px;
-  font-size: 30px;
-`
 function WelcomeModal() {
   const [shouldOpenModalCache, setShouldOpenModalCache] = useLocalStorage('welcomeModal', true)
   const [isOpen, setModalIsOpen] = useState(false)
@@ -30,7 +21,7 @@ function WelcomeModal() {
     shouldOpenModalCache &&
       window.setTimeout(() => {
         setModalIsOpen(true)
-      }, 1000)
+      }, 1500)
   }, [shouldOpenModalCache])
 
   const onDismiss = useCallback(() => {
@@ -41,7 +32,6 @@ function WelcomeModal() {
   return (
     <Modal isOpen={isOpen} onDismiss={onDismiss} minHeight={'70'}>
       <ModalContainer>
-        <ModalHeader> </ModalHeader>
         <Carousel />
       </ModalContainer>
     </Modal>
