@@ -5,6 +5,7 @@ import WrongNetworkGif from '../../assets/gifs/wrong-network.gif'
 import DespositGif from '../../assets/gifs/deposit.gif'
 import ActionsGif from '../../assets/gifs/actions.gif'
 import TwitterImage from '../../assets/images/twitter-share.png'
+import ArbLogo from '../../assets/images/logo-handshake.png'
 
 import { Link } from '../../theme'
 import TweetButton from '../NavigationTabs/TweetButton'
@@ -57,7 +58,7 @@ function WelcomeCarousel() {
           Let’s get started!
           
            </span>}
-        imageUrl={'https://picsum.photos/seed/200/300'}
+        imageUrl={ArbLogo}
       />
       <ImageSlide
         text={
@@ -76,7 +77,7 @@ function WelcomeCarousel() {
         imageUrl={DespositGif}
       />
       <ImageSlide
-        text={<span>Alternatively, <TweetButton/> at us and we’ll send some ETH and Arbiswap test token directly to you on the layer 2 chain.</span>}
+        text={<span className='welcome--tweet-span'><span>Alternatively,</span> <TweetButton/> <span> at us and we’ll send some ETH and Arbiswap test token directly to you on the layer 2 chain.</span></span>}
         imageUrl={TwitterImage}
       />
       <ImageSlide
