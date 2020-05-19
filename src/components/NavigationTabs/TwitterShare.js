@@ -47,7 +47,7 @@ const TwitterShare = () => {
       {showTweetShare && (
         <TweetFaucetMessage>
           <span> Use your own Ropsten Ether/tokens, or </span>
-          <TweetButton/>
+          <TweetButton />
           <span>{"us and we'll send you some!"}</span>
           <span onClick={hideTweetShare} className="close">
             ✕

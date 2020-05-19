@@ -8,7 +8,7 @@ const WelcomeImg = styled.img`
 
 const ImgWrapper = styled.div`
   display: flex;
-  justify-content: center; 
+  justify-content: center;
 `
 
 const WelcomeText = styled.div`
@@ -16,7 +16,7 @@ const WelcomeText = styled.div`
   margin-bottom: 10px;
   min-height: 100px;
 `
-const WelcomeSliderContainer=styled.div`
+const WelcomeSliderContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 90%;

@@ -26,17 +26,17 @@ function WelcomeModal() {
   const [shouldOpenModalCache, setShouldOpenModalCache] = useLocalStorage('welcomeModal', true)
   const [isOpen, setModalIsOpen] = useState(false)
 
-  useEffect(()=>{
-    shouldOpenModalCache && window.setTimeout(()=>{
-      setModalIsOpen(true)
-    }, 1000)
-  },[])
+  useEffect(() => {
+    shouldOpenModalCache &&
+      window.setTimeout(() => {
+        setModalIsOpen(true)
+      }, 1000)
+  }, [shouldOpenModalCache])
 
-
-  const onDismiss = useCallback(()=>{
-    setModalIsOpen(false);
+  const onDismiss = useCallback(() => {
+    setModalIsOpen(false)
     shouldOpenModalCache && setShouldOpenModalCache(false)
-  },[shouldOpenModalCache])
+  }, [setShouldOpenModalCache, shouldOpenModalCache])
 
   return (
     <Modal isOpen={isOpen} onDismiss={onDismiss} minHeight={'70'}>
