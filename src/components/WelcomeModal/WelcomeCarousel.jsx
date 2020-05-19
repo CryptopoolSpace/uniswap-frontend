@@ -5,7 +5,7 @@ import WrongNetworkGif from '../../assets/gifs/wrong-network.gif'
 import DespositGif from '../../assets/gifs/deposit.gif'
 import ActionsGif from '../../assets/gifs/actions.gif'
 import TwitterImage from '../../assets/images/twitter-share.png'
-import ArbLogo from '../../assets/images/logo-handshake.png'
+import LogoHandshake from '../../assets/images/logo-handshake.png'
 
 import { Link } from '../../theme'
 import TweetButton from '../NavigationTabs/TweetButton'
@@ -41,7 +41,7 @@ function WelcomeCarousel() {
 
   const config = {
     enableAutoPlay: autoPlayEnabled,
-    autoPlaySpeed: 5000,
+    autoPlaySpeed: 7000,
     itmesToShow: 1
   }
   return (
@@ -56,9 +56,9 @@ function WelcomeCarousel() {
         text={ <span> Welcome to Arbiswap, a layer 2 implementation of the Uniswap Exchange using Arbitrum rollup technology! 
           Once you get some funds on the rollup chain, you can use it just like you would layer 1 Uniswap.<br/><br/>
           Let’s get started!
-          
+
            </span>}
-        imageUrl={ArbLogo}
+        imageUrl={LogoHandshake}
       />
       <ImageSlide
         text={
@@ -90,7 +90,7 @@ function WelcomeCarousel() {
           <br/>          <br/>
         Happy swapping!
         </span>}
-        imageUrl={'https://picsum.photos/200/300'}
+        imageUrl={LogoHandshake}
       />
     </Carousel>
   )

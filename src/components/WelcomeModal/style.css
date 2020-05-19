@@ -37,11 +37,11 @@ html {
     display: flex;
     flex-direction: column;
     /* width: 500px; */
-    /* width: 100%; */
+    width: 90%;
 }
 .welcome--slide-text{
     /* width: 400px; */
-    font-size: 20px;
+    font-size: 18px;
     margin-bottom: 10px;
     min-height: 100px;
     /* display: flex; */
@@ -59,4 +59,9 @@ html {
 .welcome--tweet-span *{
     display: inline;
     position: relative;
+}
+
+.rec-slider-container{
+    /* overflow: visible  !important; */
+    /* width: 100%; */
 }
