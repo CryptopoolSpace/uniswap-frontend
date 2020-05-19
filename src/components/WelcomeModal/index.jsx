@@ -1,6 +1,5 @@
 import Modal from '../Modal'
 import React, { useState, useEffect, useCallback } from 'react'
-import { useLocalStorage } from '@rehooks/local-storage'
 import styled from 'styled-components'
 import Carousel from './WelcomeCarousel'
 const ModalContainer = styled.div`
@@ -13,15 +12,16 @@ const ModalContainer = styled.div`
   padding-top: 60px;
 `
 
-function WelcomeModal() {
-  const [shouldOpenModalCache, setShouldOpenModalCache] = useLocalStorage('welcomeModal', true)
+function WelcomeModal({shouldOpenModalCache, setShouldOpenModalCache}) {
   const [isOpen, setModalIsOpen] = useState(false)
+  const [delay, setDelay] = useState(1500)
 
-  useEffect(() => {
+  useEffect(() => {    
     shouldOpenModalCache &&
       window.setTimeout(() => {
         setModalIsOpen(true)
-      }, 1500)
+      }, delay)
+      setDelay(0)
   }, [shouldOpenModalCache])
 
   const onDismiss = useCallback(() => {

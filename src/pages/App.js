@@ -9,6 +9,7 @@ import Footer from '../components/Footer'
 import NavigationTabs from '../components/NavigationTabs'
 import { isAddress, getAllQueryParams } from '../utils'
 import WelcomeModal from '../components/WelcomeModal'
+import { useLocalStorage } from '@rehooks/local-storage'
 
 const Swap = lazy(() => import('./Swap'))
 const Send = lazy(() => import('./Send'))
@@ -51,16 +52,18 @@ const Body = styled.div`
 
 export default function App() {
   const params = getAllQueryParams()
+  const [shouldOpenModalCache, setShouldOpenModalCache] = useLocalStorage('welcomeModal', true)
+
   return (
     <>
       <Suspense fallback={null}>
         <AppWrapper>
           <HeaderWrapper>
-            <Header />
+            <Header setShouldOpenModalCache={setShouldOpenModalCache} />
           </HeaderWrapper>
           <BodyWrapper>
             <Body>
-              <WelcomeModal />
+              <WelcomeModal shouldOpenModalCache={shouldOpenModalCache} setShouldOpenModalCache={setShouldOpenModalCache} />
               <Web3ReactManager>
                 <HashRouter>
                   <NavigationTabs />
