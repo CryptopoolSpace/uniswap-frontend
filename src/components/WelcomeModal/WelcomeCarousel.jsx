@@ -23,8 +23,8 @@ const carouselContainerStyle = {
   position: 'relative',
   height: '450px',
   display: 'flex',
-  'flex-direction': 'column',
-  'justify-content': 'space-around'
+  'flexDirection': 'column',
+  'justifyContent': 'space-around'
 }
 
 function WelcomeCarousel() {
