@@ -73,14 +73,17 @@ function WelcomeCarousel() {
         text={
           <span>
             {' '}
-            Welcome to Arbiswap, a layer 2 implementation of the Uniswap Exchange using Arbitrum rollup technology! Once
-            you get some funds on the rollup chain, you can use it just like you would layer 1 Uniswap.
+            Welcome to Arbiswap, a layer 2 implementation of the Uniswap Exchange using Arbitrum rollup technology!
+            <br />
+            <br />
+            Once you get some funds on the rollup chain, you can use it just like you would layer 1 Uniswap.
             <br />
             <br />
             Let’s get started!
           </span>
         }
         imageUrl={LogoHandshake}
+        useBorder={false}
       />
       <ImageSlide
         text={
@@ -138,6 +141,8 @@ function WelcomeCarousel() {
           </span>
         }
         imageUrl={LogoHandshake}
+        useBorder={false}
+
       />
     </Carousel>
   )
