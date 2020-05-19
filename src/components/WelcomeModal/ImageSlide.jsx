@@ -1,14 +1,35 @@
 import React from 'react'
+import styled from 'styled-components'
+
+const WelcomeImg = styled.img`
+  width: 400px;
+  height: auto;
+`
+
+const ImgWrapper = styled.div`
+  display: flex;
+  justify-content: center; 
+`
+
+const WelcomeText = styled.div`
+  font-size: 18px;
+  margin-bottom: 10px;
+  min-height: 100px;
+`
+const WelcomeSliderContainer=styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+`
 
 function ImageSlide({ text, imageUrl }) {
   return (
-    <div className="welcome--slide-container">
-      <div className="welcome--slide-text"> {text}</div>
-      <div className="welcome--slide-image-wrapper">
-        <img className="welcome--slide-image" src={imageUrl} alt="" />
-      </div>
-      <div className="welcome--image-container"></div>
-    </div>
+    <WelcomeSliderContainer>
+      <WelcomeText> {text}</WelcomeText>
+      <ImgWrapper>
+        <WelcomeImg src={imageUrl} />
+      </ImgWrapper>
+    </WelcomeSliderContainer>
   )
 }
 

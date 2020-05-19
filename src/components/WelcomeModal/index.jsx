@@ -2,7 +2,6 @@ import Modal from '../Modal'
 import React, { useState, useEffect, useCallback } from 'react'
 import { useLocalStorage } from '@rehooks/local-storage'
 import styled from 'styled-components'
-import './style.css'
 import Carousel from './WelcomeCarousel'
 const ModalContainer = styled.div`
   ${({ theme }) => theme.flexColumnNoWrap}
@@ -40,9 +39,9 @@ function WelcomeModal() {
   },[shouldOpenModalCache])
 
   return (
-    <Modal isOpen={isOpen} onDismiss={onDismiss} minHeight={'75'}>
+    <Modal isOpen={isOpen} onDismiss={onDismiss} minHeight={'70'}>
       <ModalContainer>
-        <ModalHeader>Arbiswap</ModalHeader>
+        <ModalHeader> </ModalHeader>
         <Carousel />
       </ModalContainer>
     </Modal>

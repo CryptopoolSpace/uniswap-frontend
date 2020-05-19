@@ -9,6 +9,23 @@ import LogoHandshake from '../../assets/images/logo-handshake.png'
 
 import { Link } from '../../theme'
 import TweetButton from '../NavigationTabs/TweetButton'
+import styled from 'styled-components'
+
+const TweetSpan = styled.span`
+  *{
+    display: inline;
+    position: relative;
+  }
+`
+
+const carouselContainerStyle = {
+  width: '95%',
+  position: 'relative',
+  height: '450px',
+  display: 'flex',
+  'flex-direction': 'column',
+  'justify-content': 'space-around'
+}
 
 function WelcomeCarousel() {
   const carouselRef = useRef(null)
@@ -50,7 +67,7 @@ function WelcomeCarousel() {
       onPrevStart={disableAutoPlay}
       {...config}
       ref={carouselRef}
-      className="carousel-cont"
+      style={carouselContainerStyle}
     >
       <ImageSlide
         text={ <span> Welcome to Arbiswap, a layer 2 implementation of the Uniswap Exchange using Arbitrum rollup technology! 
@@ -77,7 +94,7 @@ function WelcomeCarousel() {
         imageUrl={DespositGif}
       />
       <ImageSlide
-        text={<span className='welcome--tweet-span'><span>Alternatively,</span> <TweetButton/> <span> at us and we’ll send some ETH and Arbiswap test token directly to you on the layer 2 chain.</span></span>}
+        text={<TweetSpan><span>Alternatively,</span> <TweetButton/> <span> at us and we’ll send some ETH and Arbiswap test token directly to you on the layer 2 chain.</span></TweetSpan>}
         imageUrl={TwitterImage}
       />
       <ImageSlide
