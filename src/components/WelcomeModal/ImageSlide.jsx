@@ -31,8 +31,8 @@ const WelcomeSliderContainer = styled.div`
 `
 
 const borderStyle = {   
-  border: "4px solid #DC6BE5",
-  'border-radius': "5px",
+  border: "3px solid #DC6BE5",
+  'border-radius': "3px",
 }
 
 const none = {}
