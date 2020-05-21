@@ -155,16 +155,22 @@ const noddingUnicorn = (
   </Nod>
 )
 
-const menuLinks = [
-  <Link className={'link'} href="link to blog post">
-    <h1 id="title">Arbiswap</h1>
-  </Link>,
-  <Link className={'link'} href="https://developer.offchainlabs.com">
-    <h1 id="title">Arbitrum Documentation</h1>
-  </Link>
-]
 
-export default function Header() {
+export default function Header({setShouldOpenModalCache}) {
+  const showWelcomeModal = ()=> setShouldOpenModalCache(true)
+  const menuLinks = [
+    <Link className={'link'} href="link to blog post">
+      <h1 id="title">Arbiswap</h1>
+    </Link>,
+    <Link className={'link'} href="https://developer.offchainlabs.com">
+      <h1 id="title">Arbitrum Documentation</h1>
+    </Link>,
+    <Link className={'link'} disabled onClick={showWelcomeModal}>
+      <h1 id="title">Get Started </h1>  
+    </Link>   
+  ]
+  
+
   const mobileMenuLinks = menuLinks.map((el, idx) => (
     <ul>
       <li key={idx}>{el}</li>

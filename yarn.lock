@@ -1492,7 +1492,7 @@
   resolved "https://registry.yarnpkg.com/@reach/visually-hidden/-/visually-hidden-0.1.4.tgz#0dc4ecedf523004337214187db70a46183bd945b"
   integrity sha512-QHbzXjflSlCvDd6vJwdwx16mSB+vUCCQMiU/wK/CgVNPibtpEiIbisyxkpZc55DyDFNUIqP91rSUsNae+ogGDQ==
 
-"@rehooks/local-storage@^2.3.0":
+"@rehooks/local-storage@^2.3.0", "@rehooks/local-storage@^2.4.0":
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/@rehooks/local-storage/-/local-storage-2.4.0.tgz#fb884b2b657cad5f77aa6ab60bb3532f0e0725d2"
   integrity sha512-LoXDbEHsuIckVgBsFAv8SuU/M7memjyfWut9Zf36TQXqqCHBRFv8bweg9PymQCa1aWIMjNrZQflFdo55FDlXYg==
@@ -2366,11 +2366,8 @@ arb-token-bridge@OffchainLabs/token-bridge-sdk:
   resolved "https://codeload.github.com/OffchainLabs/token-bridge-sdk/tar.gz/2d124f9e4a593ad26b2e579f75bcee72237e92c8"
   dependencies:
     "@rehooks/local-storage" "^2.3.0"
-    "@types/lodash.isempty" "^4.4.6"
-    arb-provider-ethers "^0.5.0"
-    ethers "^4.0.47"
-    lodash.clonedeep "^4.5.0"
-    lodash.isempty "^4.4.0"
+    arb-provider-ethers "^0.4.7"
+    ethers "^4.0.44"
     lodash.isequal "^4.5.0"
     typescript "^3.8.3"
 
@@ -12365,6 +12362,11 @@ react-dom@^16.8.6:
     object-assign "^4.1.1"
     prop-types "^15.6.2"
     scheduler "^0.19.1"
+
+react-elastic-carousel@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/react-elastic-carousel/-/react-elastic-carousel-0.4.1.tgz#6486fa7514f50fdc2af95277a6cfe860b0702020"
+  integrity sha512-lsaj7JD4ags55caRx8UlPpP+BvHEHbdT0RbawyzAJV/Aixsw6S3QkSBKi2v/utbtaVVRcr/euRr9UQOaK1wJXg==
 
 react-error-overlay@^6.0.7:
   version "6.0.7"
