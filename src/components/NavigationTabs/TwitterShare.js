@@ -40,7 +40,7 @@ const TweetFaucetMessage = styled.div`
 const TwitterShare = () => {
   const [showTweetShare, setShowTweetShare] = useState(true)
   const hideTweetShare = () => setShowTweetShare(false)
-=  return (
+  return (
     <>
       {showTweetShare && (
         <TweetFaucetMessage>
