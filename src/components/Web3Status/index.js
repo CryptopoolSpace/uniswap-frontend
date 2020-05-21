@@ -135,7 +135,7 @@ function walletModalReducer(state, { type, payload }) {
 
 export default function Web3Status() {
   const { t } = useTranslation()
-  const { active, account, connectorName, setConnector, networkId } = useWeb3Context()
+  const { active, account, connectorName, setConnector } = useWeb3Context()
 
   const ENSName = useENSName(account)
 

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { useWeb3Context } from 'web3-react'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
 import { useArbTokenBridge, TokenType } from 'arb-token-bridge'
@@ -147,7 +146,6 @@ export default function Bridge({ params = defaultBridgeParams }) {
   const [isLoading, setLoading] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
 
-  // const { connector, connectorName, library } = useWeb3Context()
   const { t: translated } = useTranslation()
   const { balances, bridgeTokens, ...bridge } = useArbTokenBridge(
     process.env.REACT_APP_ARB_VALIDATOR_URL,

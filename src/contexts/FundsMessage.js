@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer, useMemo, useCallback, useState, useEffect } from 'react'
+import React, { createContext, useContext, useState, useEffect } from 'react'
 import { ethers } from 'ethers'
 
 const arbTokenAddress = process.env.REACT_APP_ARBISWAP_ADDRESS

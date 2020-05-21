@@ -1,6 +1,5 @@
 import React, { useState, useReducer, useEffect } from 'react'
 import ReactGA from 'react-ga'
-import { createBrowserHistory } from 'history'
 
 import { useTranslation } from 'react-i18next'
 import { useWeb3Context } from 'web3-react'

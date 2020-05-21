@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { useWeb3Context } from 'web3-react'
 import { transparentize } from 'polished'
 import TweetButton from './TweetButton'
 
@@ -41,8 +40,7 @@ const TweetFaucetMessage = styled.div`
 const TwitterShare = () => {
   const [showTweetShare, setShowTweetShare] = useState(true)
   const hideTweetShare = () => setShowTweetShare(false)
-  const { account } = useWeb3Context()
-  return (
+=  return (
     <>
       {showTweetShare && (
         <TweetFaucetMessage>
