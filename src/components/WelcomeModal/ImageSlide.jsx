@@ -4,11 +4,7 @@ import styled from 'styled-components'
 const WelcomeImg = styled.img`
   width: 400px;
   height: auto;
-`
-const WelcomeImgWithBorder = styled.img`
-  width: 400px;
-  height: auto;
-  border: 5px solid #DC6BE5;
+  border: 4px solid #dc6be5;
   border-radius: 5px;
 `
 
@@ -30,19 +26,19 @@ const WelcomeSliderContainer = styled.div`
   width: 90%;
 `
 
-const borderStyle = {   
-  border: "3px solid #DC6BE5",
-  borderRadius: "3px",
+const borderStyle = {
+  border: '3px solid #DC6BE5',
+  borderRadius: '3px'
 }
 
 const none = {}
 
-function ImageSlide({ text, imageUrl, useBorder = true }) {
+function ImageSlide({ text, imageUrl, imageStyle = {}, textStyle = {} }) {
   return (
     <WelcomeSliderContainer>
-      <WelcomeText> {text}</WelcomeText>
+      <WelcomeText style={textStyle}> {text}</WelcomeText>
       <ImgWrapper>
-        <WelcomeImg src={imageUrl} style={ useBorder ? borderStyle: none} />
+        <WelcomeImg src={imageUrl} style={imageStyle} />
       </ImgWrapper>
     </WelcomeSliderContainer>
   )

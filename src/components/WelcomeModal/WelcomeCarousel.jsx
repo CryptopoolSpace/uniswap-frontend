@@ -3,6 +3,7 @@ import Carousel from 'react-elastic-carousel'
 import ImageSlide from './ImageSlide'
 import WrongNetworkGif from '../../assets/gifs/wrong-network.gif'
 import DespositGif from '../../assets/gifs/deposit.gif'
+import Withdraw from '../../assets/gifs/withdraw.gif'
 import ActionsGif from '../../assets/gifs/actions.gif'
 import TwitterImage from '../../assets/images/twitter-share.png'
 import LogoHandshake from '../../assets/images/logo-handshake.png'
@@ -23,9 +24,13 @@ const carouselContainerStyle = {
   position: 'relative',
   height: '450px',
   display: 'flex',
-  'flexDirection': 'column',
-  'justifyContent': 'space-around'
+  flexDirection: 'column',
+  justifyContent: 'space-around'
 }
+
+const smallFontStyle = { fontSize: '15px', lineHeight: '20px' }
+
+const noBorderImgStyle = { borderStyle: 'none' }
 
 function WelcomeCarousel() {
   const carouselRef = useRef(null)
@@ -83,7 +88,7 @@ function WelcomeCarousel() {
           </span>
         }
         imageUrl={LogoHandshake}
-        useBorder={false}
+        imageStyle={noBorderImgStyle}
       />
       <ImageSlide
         text={
@@ -127,6 +132,32 @@ function WelcomeCarousel() {
       <ImageSlide
         text={
           <span>
+            <span>
+              To withdraw your Ether / ERC20 tokens back to layer 1, select the "withdraw" option on the
+              deposits/withdraw panel.{' '}
+            </span>
+            <br />
+            <br />
+            <span>
+              {' '}
+              Your balance will appear as "pending", and will be available to you in your lockbox after the "challenge
+              period." See our{' '}
+              <Link
+                href="https://medium.com/offchainlabs/optimizing-challenge-periods-in-rollup-b61378c87277"
+                target="_blank"
+              >
+                blog post
+              </Link>{' '}
+              for more info!{' '}
+            </span>
+          </span>
+        }
+        imageUrl={Withdraw}
+        textStyle={smallFontStyle}
+      />
+      <ImageSlide
+        text={
+          <span>
             For more info, checkout our{' '}
             <Link href="https://medium.com/offchainlabs" target="_blank">
               blog
@@ -141,8 +172,7 @@ function WelcomeCarousel() {
           </span>
         }
         imageUrl={LogoHandshake}
-        useBorder={false}
-
+        imageStyle={noBorderImgStyle}
       />
     </Carousel>
   )
