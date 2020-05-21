@@ -12,16 +12,16 @@ const ModalContainer = styled.div`
   padding-top: 60px;
 `
 
-function WelcomeModal({shouldOpenModalCache, setShouldOpenModalCache}) {
+function WelcomeModal({ shouldOpenModalCache, setShouldOpenModalCache }) {
   const [isOpen, setModalIsOpen] = useState(false)
   const [delay, setDelay] = useState(1500)
 
-  useEffect(() => {    
+  useEffect(() => {
     shouldOpenModalCache &&
       window.setTimeout(() => {
         setModalIsOpen(true)
       }, delay)
-      setDelay(0)
+    setDelay(0)
   }, [shouldOpenModalCache])
 
   const onDismiss = useCallback(() => {

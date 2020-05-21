@@ -37,7 +37,7 @@ const ETHERSCAN_PREFIXES = {
 export function getEtherscanLink(networkId, data, type) {
   // overwrite Arb overlay network id with Ropsten:
   networkId = 3
-  
+
   const prefix = `https://${ETHERSCAN_PREFIXES[networkId] || ETHERSCAN_PREFIXES[1]}etherscan.io`
 
   switch (type) {

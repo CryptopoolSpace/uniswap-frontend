@@ -5,7 +5,7 @@ import { Link } from '../../theme'
 import Web3Status from '../Web3Status'
 import { darken } from 'polished'
 import { slide as MobileMenu } from 'react-burger-menu'
-import logo from '../../assets/images/arbiswap2.png';
+import logo from '../../assets/images/arbiswap2.png'
 
 const HeaderFrame = styled.div`
   display: flex;
@@ -27,8 +27,8 @@ const Nod = styled.span`
   }
 
   #arbiswaplogo {
-    max-width:100%;
-    max-height:100%;
+    max-width: 100%;
+    max-height: 100%;
     height: 2em;
     width: auto;
   }
@@ -155,9 +155,8 @@ const noddingUnicorn = (
   </Nod>
 )
 
-
-export default function Header({setShouldOpenModalCache}) {
-  const showWelcomeModal = ()=> setShouldOpenModalCache(true)
+export default function Header({ setShouldOpenModalCache }) {
+  const showWelcomeModal = () => setShouldOpenModalCache(true)
   const menuLinks = [
     <Link className={'link'} href="link to blog post">
       <h1 id="title">Arbiswap</h1>
@@ -166,11 +165,9 @@ export default function Header({setShouldOpenModalCache}) {
       <h1 id="title">Arbitrum Documentation</h1>
     </Link>,
     <Link className={'link'} disabled onClick={showWelcomeModal}>
-      <h1 id="title">Get Started </h1>  
-    </Link>   
+      <h1 id="title">Get Started </h1>
+    </Link>
   ]
-  
-
   const mobileMenuLinks = menuLinks.map((el, idx) => (
     <ul>
       <li key={idx}>{el}</li>

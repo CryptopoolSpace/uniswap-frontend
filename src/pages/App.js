@@ -63,7 +63,10 @@ export default function App() {
           </HeaderWrapper>
           <BodyWrapper>
             <Body>
-              <WelcomeModal shouldOpenModalCache={shouldOpenModalCache} setShouldOpenModalCache={setShouldOpenModalCache} />
+              <WelcomeModal
+                shouldOpenModalCache={shouldOpenModalCache}
+                setShouldOpenModalCache={setShouldOpenModalCache}
+              />
               <Web3ReactManager>
                 <HashRouter>
                   <NavigationTabs />

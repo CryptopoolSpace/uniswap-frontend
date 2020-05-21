@@ -245,7 +245,7 @@ function getMarketRate(
   }
 }
 
-function ExchangePage({ initialCurrency, sending = false, params, location: { pathname='' } }) {
+function ExchangePage({ initialCurrency, sending = false, params, location: { pathname = '' } }) {
   const { t } = useTranslation()
   const { account } = useWeb3Context()
 

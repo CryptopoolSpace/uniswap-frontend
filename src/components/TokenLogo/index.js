@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 
 import { ReactComponent as EthereumLogo } from '../../assets/images/ethereum-logo.svg'
-import { ReactComponent as ArbiswapLogo } from '../../assets/images/arbitrum-pink.svg';
+import { ReactComponent as ArbiswapLogo } from '../../assets/images/arbitrum-pink.svg'
 
 const TOKEN_ICON_API = address =>
   `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/${address}/logo.png`

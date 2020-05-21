@@ -452,8 +452,8 @@ const INITIAL_TOKENS_CONTEXT = {
       [SYMBOL]: 'SWAP',
       [DECIMALS]: 18,
       [EXCHANGE_ADDRESS]: '0x3C1Be20BE169dF0D99ccA3730AAE70580C3EdF9a'
-    },
-  },
+    }
+  }
 }
 
 const TokensContext = createContext()

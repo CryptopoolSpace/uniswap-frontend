@@ -139,7 +139,6 @@ const ETH_TOKEN = 'ETH'
 
 // TODO symbol image search overrides for each symbol if possible
 export default function Bridge({ params = defaultBridgeParams }) {
-
   const l1NetworkId = window.ethereum.networkVersion
   const [transferType, setTransferType] = useState(TransferType.toArb)
   const [transferValue, setTransferValue] = useState('0.0')
@@ -421,9 +420,10 @@ export default function Bridge({ params = defaultBridgeParams }) {
               ) : null}
               <Tooltip
                 label={
-                  <span> 
-                    When withdrawing tokens from an Arbitrum Rollup, the withdrawal will be in a "pending" state during a "challenge period" of roughly 3 hours. 
-                    After that the tokens will be available to you on layer 1 in your lockbox. Click to read more.                 
+                  <span>
+                    When withdrawing tokens from an Arbitrum Rollup, the withdrawal will be in a "pending" state during
+                    a "challenge period" of roughly 3 hours. After that the tokens will be available to you on layer 1
+                    in your lockbox. Click to read more.
                   </span>
                 }
                 style={{
@@ -438,7 +438,10 @@ export default function Bridge({ params = defaultBridgeParams }) {
                   whiteSpace: 'normal'
                 }}
               >
-                <a target="_blank" href="https://medium.com/offchainlabs/optimizing-challenge-periods-in-rollup-b61378c87277">
+                <a
+                  target="_blank"
+                  href="https://medium.com/offchainlabs/optimizing-challenge-periods-in-rollup-b61378c87277"
+                >
                   <StyledQuestionMark />
                 </a>
               </Tooltip>
@@ -449,9 +452,12 @@ export default function Bridge({ params = defaultBridgeParams }) {
                 children={isLoading ? <Spinner src={Circle} alt={'Loading...'} /> : 'Withdraw'}
               />
             )}
-          </PanelRow>       
+          </PanelRow>
           <PanelRow2>
-            <span>Arbitrum Chain address: <Link href={getEtherscanLink(l1NetworkId, bridge.vmId, 'address')}>{bridge.vmId}</Link> </span>
+            <span>
+              Arbitrum Chain address:{' '}
+              <Link href={getEtherscanLink(l1NetworkId, bridge.vmId, 'address')}>{bridge.vmId}</Link>{' '}
+            </span>
           </PanelRow2>
         </DetailRows>
       </OversizedPanel>
@@ -459,7 +465,13 @@ export default function Bridge({ params = defaultBridgeParams }) {
       <ButtonContainer>
         <Button disabled={isLoading} onClick={handleButtonClick} warning={!!errorMessage}>
           {/* text should provide destination context */}
-          {isLoading ? <Spinner src={Circle} alt={'Loading...'} /> : transferType === TransferType.toArb ? 'Deposit' : "Withdraw"}
+          {isLoading ? (
+            <Spinner src={Circle} alt={'Loading...'} />
+          ) : transferType === TransferType.toArb ? (
+            'Deposit'
+          ) : (
+            'Withdraw'
+          )}
         </Button>
       </ButtonContainer>
     </>

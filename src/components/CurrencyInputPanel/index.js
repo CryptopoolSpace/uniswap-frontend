@@ -585,11 +585,14 @@ function CurrencySelectModal({
         return (
           <>
             <div>
-              {renderTokenRow({
-                address: searchQuery,
-                symbol: tokenSearchResult.symbol,
-                name: tokenSearchResult.name
-              }, false)}
+              {renderTokenRow(
+                {
+                  address: searchQuery,
+                  symbol: tokenSearchResult.symbol,
+                  name: tokenSearchResult.name
+                },
+                false
+              )}
             </div>
           </>
         )
