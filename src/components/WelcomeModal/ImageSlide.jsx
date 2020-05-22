@@ -6,6 +6,12 @@ const WelcomeImg = styled.img`
   height: auto;
   border: 4px solid #dc6be5;
   border-radius: 5px;
+  ${({ theme }) => theme.mediaWidth.upToMedium`
+  width: 320px;
+  `}
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+  width: 230px;
+`}
 `
 
 const ImgWrapper = styled.div`
@@ -19,6 +25,10 @@ const WelcomeText = styled.div`
   margin-bottom: 10px;
   min-height: 100px;
   line-height: 27px;
+  ${({ theme }) => theme.mediaWidth.upToSmall`
+  font-size:14px;
+  line-height: 21px;
+`}
 `
 const WelcomeSliderContainer = styled.div`
   display: flex;
