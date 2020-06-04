@@ -78,10 +78,10 @@ function WelcomeCarousel() {
         text={
           <span>
             {' '}
-            Welcome to Arbiswap, a layer 2 implementation of the Uniswap Exchange using Arbitrum rollup technology!
+            Welcome to Arbiswap, a layer 2 implementation of the Uniswap Exchange on Arbitrum Rollup!
             <br />
             <br />
-            Once you get some funds on the rollup chain, you can use it just like you would layer 1 Uniswap.
+            Once you get some funds on the rollup chain, you can use them just like you would Layer 1 Uniswap.
             <br />
             <br />
             Let’s get started!
@@ -93,9 +93,9 @@ function WelcomeCarousel() {
       <ImageSlide
         text={
           <span>
-            First, make sure you have,{' '}
+            First, make sure you have{' '}
             <Link target="_blank" href="https://metamask.io/download.html">
-              MetaMask installed,
+              MetaMask installed
             </Link>{' '}
             and that you are connected to the Ropsten test network.
           </span>
@@ -105,8 +105,8 @@ function WelcomeCarousel() {
       <ImageSlide
         text={
           <span>
-            Now you’ll need to get some funds onto our rollup sidechain. If you already have Ropsten ETH or any Ropsten
-            ERC20 token, you can deposit via the “Deposit/Withdrawal” tab.
+            Now you’ll need to get some funds onto our Arbitrum Rollup chain. If you already have Ropsten ETH or any Ropsten
+            ERC20 token, you can deposit via the “Deposit/Withdraw” tab.
           </span>
         }
         imageUrl={DespositGif}
@@ -115,7 +115,7 @@ function WelcomeCarousel() {
         text={
           <TweetSpan>
             <span>Alternatively,</span> <TweetButton />{' '}
-            <span> at us and we’ll send some ETH and Arbiswap test token directly to you on the layer 2 chain.</span>
+            <span> at us and we’ll send some ETH and Arbiswap test token directly to you on the Layer 2 chain.</span>
           </TweetSpan>
         }
         imageUrl={TwitterImage}
@@ -123,7 +123,7 @@ function WelcomeCarousel() {
       <ImageSlide
         text={
           <span>
-            Once you have funds on layer 2, you can use it just like you would uniswap on layer 1; send, swap, add
+            Once you have funds in the Rollup chain, you can use them just like you would in Uniswap on Layer 1: send, swap, add
             liquidity, etc.
           </span>
         }
@@ -133,8 +133,8 @@ function WelcomeCarousel() {
         text={
           <span>
             <span>
-              To withdraw your Ether / ERC20 tokens back to layer 1, select the "withdraw" option on the
-              deposits/withdraw panel.{' '}
+              To withdraw your Ether/ERC20 tokens back to Layer 1, select the "withdraw" option on the
+              deposit/withdraw panel.{' '}
             </span>
             <br />
             <br />
