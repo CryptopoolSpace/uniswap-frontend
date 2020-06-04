@@ -8,7 +8,7 @@ import ActionsGif from '../../assets/gifs/actions.gif'
 import TwitterImage from '../../assets/images/twitter-share.png'
 import LogoHandshake from '../../assets/images/logo-handshake.png'
 
-import { Link } from '../../theme'
+import { Link, EmphText } from '../../theme'
 import TweetButton from '../NavigationTabs/TweetButton'
 import styled from 'styled-components'
 
@@ -106,7 +106,7 @@ function WelcomeCarousel() {
         text={
           <span>
             Now you’ll need to get some funds onto our Arbitrum Rollup chain. If you already have Ropsten ETH or any Ropsten
-            ERC20 token, you can deposit via the “Deposit/Withdraw” tab.
+            ERC20 token, you can deposit via the <EmphText>Deposit/Withdraw </EmphText>tab.
           </span>
         }
         imageUrl={DespositGif}
@@ -133,8 +133,8 @@ function WelcomeCarousel() {
         text={
           <span>
             <span>
-              To withdraw your Ether/ERC20 tokens back to Layer 1, select the "withdraw" option on the
-              deposit/withdraw panel.{' '}
+              To withdraw your Ether/ERC20 tokens back to Layer 1, select the <EmphText>Withdraw</EmphText> option on the {' '} 
+              <EmphText>Deposit/Withdraw</EmphText> panel.{' '}
             </span>
             <br />
             <br />
