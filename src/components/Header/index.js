@@ -35,7 +35,7 @@ const Nod = styled.span`
 `
 
 const Title = styled.div`
-  #title {
+  .title {
     display: inline;
     margin: 0 1vw;
     font-size: 1rem;
@@ -159,13 +159,13 @@ export default function Header({ setShouldOpenModalCache }) {
   const showWelcomeModal = () => setShouldOpenModalCache(true)
   const menuLinks = [
     <Link className={'link'} href="qqq">
-      <h1 id="title">Arbiswap</h1>
+      <div className="title">Arbiswap</div>
     </Link>,
     <Link className={'link'} href="https://developer.offchainlabs.com">
-      <h1 id="title">Arbitrum Documentation</h1>
+      <div className="title">Arbitrum Docs</div>
     </Link>,
     <Link className={'link'} disabled onClick={showWelcomeModal}>
-      <h1 id="title">Get Started </h1>
+      <div className="title">Get Started </div>
     </Link>
   ]
   const mobileMenuLinks = menuLinks.map((el, idx) => (
