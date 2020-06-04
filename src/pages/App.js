@@ -63,11 +63,11 @@ export default function App() {
           </HeaderWrapper>
           <BodyWrapper>
             <Body>
+            <Web3ReactManager>
               <WelcomeModal
                 shouldOpenModalCache={shouldOpenModalCache}
                 setShouldOpenModalCache={setShouldOpenModalCache}
               />
-              <Web3ReactManager>
                 <HashRouter>
                   <NavigationTabs />
                   {/* this Suspense is for route code-splitting */}
