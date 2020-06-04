@@ -421,7 +421,7 @@ export default function Bridge({ params = defaultBridgeParams }) {
                   <span>
                     When withdrawing tokens from an Arbitrum Rollup, the withdrawal will be in a "pending" state during
                     a "challenge period" of roughly 3 hours. After that the tokens will be available to you on layer 1
-                    in your lockbox. Click to read more.
+                    in your lockbox.
                   </span>
                 }
                 style={{

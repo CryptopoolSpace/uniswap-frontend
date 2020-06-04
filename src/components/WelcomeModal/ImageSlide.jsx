@@ -6,16 +6,21 @@ const WelcomeImg = styled.img`
   height: auto;
   border: 4px solid #dc6be5;
   border-radius: 5px;
-  ${({ theme }) => theme.mediaWidth.upToMedium`
+   ${({ theme }) => theme.mediaWidth.upToMedium`
   width: 320px;
-  `}
-  ${({ theme }) => theme.mediaWidth.upToSmall`
-  width: 230px;
-`}
+      height: auto;
+
+   `}
+   ${({ theme }) => theme.mediaWidth.upToSmall`
+   width: 230px;
+   height: auto;
+
+ `}
 `
 
 const ImgWrapper = styled.div`
   display: flex;
+  align-items: center;
   justify-content: center;
   margin-top: 10px;
 `

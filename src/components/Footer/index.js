@@ -85,8 +85,8 @@ const OCLDiv = styled.div`
   #arblogo{
     max-width: 100%;
     max-height: 100%;
-    height: 1.5em;
-    width: auto;
+    width: 1.5em;
+    height: auto;
     margin-left: 4px;
     align-self: center;
   }
@@ -120,7 +120,7 @@ export default function Footer() {
       <OCLDiv>
    
         <a href='https://offchainlabs.com/' target='_blank'>Brought to you by Offchain Labs </a>
-        <img id="arblogo" src={ArbLogo}/>
+        <a href='https://offchainlabs.com/' target='_blank'><img id="arblogo" src={ArbLogo}/></a>
       
       </OCLDiv>
       <StyledToggle
