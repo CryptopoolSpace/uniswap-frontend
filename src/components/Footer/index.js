@@ -5,6 +5,7 @@ import Toggle from 'react-switch'
 
 import { Link } from '../../theme'
 import { useDarkModeManager } from '../../contexts/LocalStorage'
+import ArbLogo from '../../assets/images/arblogo.png'
 
 const FooterFrame = styled.div`
   display: flex;
@@ -70,6 +71,28 @@ const EmojiToggle = styled.span`
   font-family: Arial sans-serif;
 `
 
+const OCLDiv = styled.div`
+  max-width: 300px;
+  display: flex;
+  padding-left: 50px;
+  // justify-content: flex-end;
+  font-size: 14px;
+  a{
+    text-decoration: none;
+    color: ${({ theme }) => theme.chaliceGray};
+
+  }
+  #arblogo{
+    max-width: 100%;
+    max-height: 100%;
+    height: 1.5em;
+    width: auto;
+    margin-left: 4px;
+    align-self: center;
+  }
+
+`
+
 export default function Footer() {
   const [isDark, toggleDarkMode] = useDarkModeManager()
 
@@ -94,7 +117,12 @@ export default function Footer() {
           </Link>
         </Title>
       </FooterElement>
-
+      <OCLDiv>
+   
+        <a href='https://offchainlabs.com/' target='_blank'>Brought to you by Offchain Labs </a>
+        <img id="arblogo" src={ArbLogo}/>
+      
+      </OCLDiv>
       <StyledToggle
         checked={!isDark}
         uncheckedIcon={

@@ -16,7 +16,7 @@ const TweetLink = styled.a`
 `
 const TweetButton = () => {
   const { account } = useWeb3Context()
-  const text = `@Arbi_Swap hey @OffChainLabs, gimmie some Ropsten test tokens plz! ${account || '0xyouraddresshere'}`
+  const text = `@Arbi_Swap hey @OffchainLabs, gimme some Ropsten test tokens plz! ${account || '0xyouraddresshere'}`
     .split(' ')
     .join('%20')
   return (

@@ -78,7 +78,7 @@ function WelcomeCarousel() {
         text={
           <span>
             {' '}
-            Welcome to Arbiswap, a layer 2 implementation of the Uniswap Exchange on Arbitrum Rollup!
+            Welcome to Arbiswap, a layer 2 implementation of the Uniswap Exchange on Arbitrum Rollup, brought to you by the friendly folks at <Link  target="_blank" href="https://offchainlabs.com/"> Offchain Labs!</Link>
             <br />
             <br />
             Once you get some funds on the rollup chain, you can use them just like you would Layer 1 Uniswap.
@@ -161,12 +161,13 @@ function WelcomeCarousel() {
             For more info, checkout our{' '}
             <Link href="https://medium.com/offchainlabs" target="_blank">
               blog
-            </Link>{' '}
-            and our{' '}
+            </Link>,{' '}
+            our{' '}
             <Link href="https://developer.offchainlabs.com/docs/Developer_Quickstart/" target="_blank">
-              docs
-            </Link>
-            .
+              developer docs 
+            </Link>, and the <Link href="https://offchainlabs.com/" target="_blank">
+              Offchain Labs website
+            </Link>.
             <br /> <br />
             Happy swapping!
           </span>
