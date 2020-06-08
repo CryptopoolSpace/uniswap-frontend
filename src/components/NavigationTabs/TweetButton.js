@@ -24,7 +24,7 @@ const TweetButton = () => {
   }
   return (
     <TweetLink target="_blank" onClick={handleClick}>
-      Tweet
+      Click here to Tweet
     </TweetLink>
   )
 }

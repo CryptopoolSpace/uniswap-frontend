@@ -100,7 +100,7 @@ export default function Footer() {
     <FooterFrame>
       <FooterElement>
         <Title>
-          <Link id="link" href="link to blog post">
+          <Link id="link" href="qq">
             <h1 id="title">About</h1>
           </Link>
           <Link id="link" href="https://developer.offchainlabs.com/docs/Developer_Quickstart/">

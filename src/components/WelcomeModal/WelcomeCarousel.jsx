@@ -115,7 +115,7 @@ function WelcomeCarousel() {
         text={
           <TweetSpan>
             <span>Alternatively,</span> <TweetButton />{' '}
-            <span> at us and we’ll send some ETH and Arbiswap test token directly to you on the Layer 2 chain.</span>
+            <span> at us and we’ll send some ETH and Arbiswap test tokens directly to you on the Layer 2 chain.</span>
           </TweetSpan>
         }
         imageUrl={TwitterImage}
@@ -123,7 +123,7 @@ function WelcomeCarousel() {
       <ImageSlide
         text={
           <span>
-            Once you have funds in the Rollup chain, you can use them just like you would in Uniswap on Layer 1: send, swap, add
+            Once you have funds in the Arbitrum Rollup chain, you can use them just like you would in Uniswap on Layer 1: send, swap, add
             liquidity, etc.
           </span>
         }
@@ -159,7 +159,7 @@ function WelcomeCarousel() {
         text={
           <span>
             For more info, checkout our{' '}
-            <Link href="https://medium.com/offchainlabs" target="_blank">
+            <Link href="qq" target="_blank">
               blog
             </Link>,{' '}
             our{' '}
