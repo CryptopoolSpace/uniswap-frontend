@@ -5,7 +5,7 @@ import WrongNetworkGif from '../../assets/gifs/wrong-network.gif'
 import DespositGif from '../../assets/gifs/deposit.gif'
 import Withdraw from '../../assets/gifs/withdraw.gif'
 import ActionsGif from '../../assets/gifs/actions.gif'
-import TwitterImage from '../../assets/images/twitter-share.png'
+import TwitterImage from '../../assets/images/twi-share.png'
 import LogoHandshake from '../../assets/images/logo-handshake.png'
 
 import { Link, EmphText } from '../../theme'
