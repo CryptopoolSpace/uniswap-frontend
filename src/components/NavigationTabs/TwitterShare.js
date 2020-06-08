@@ -15,7 +15,7 @@ const TweetFaucetMessage = styled.div`
   border: 1px solid ${({ theme }) => transparentize(0.6, theme.tweetBlue)};
   background-color: ${({ theme }) => transparentize(0.9, theme.tweetBlue)};
   border-radius: 2rem;
-  font-size: 0.75rem;
+  font-size: 0.74rem;
   line-height: 1rem;
   text-align: left;
   overflow: hidden;
