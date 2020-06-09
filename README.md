@@ -1,41 +1,27 @@
-# Uniswap Frontend
+# Frontend Interview Setup Instructions
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/fa110555-b3c7-4eeb-b840-88a835009c62/deploy-status)](https://app.netlify.com/sites/uniswap/deploys)
-[![Build Status](https://travis-ci.org/Uniswap/uniswap-frontend.svg)](https://travis-ci.org/Uniswap/uniswap-frontend)
-[![Styled With Prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://prettier.io/)
+Complete the following on your local machine the day prior to the interview:
 
-This an an open source interface for Uniswap - a protocol for decentralized exchange of Ethereum tokens.
+1. Clone this repository
 
-- Website: [uniswap.io](https://uniswap.io/)
-- Docs: [docs.uniswap.io](https://docs.uniswap.io/)
-- Twitter: [@UniswapExchange](https://twitter.com/UniswapExchange)
-- Reddit: [/r/Uniswap](https://www.reddit.com/r/UniSwap/)
-- Email: [contact@uniswap.io](mailto:contact@uniswap.io)
-- Slack: [uni-swap.slack.com/](https://join.slack.com/t/uni-swap/shared_invite/enQtNDYwMjg1ODc5ODA4LWEyYmU0OGU1ZGQ3NjE4YzhmNzcxMDAyM2ExNzNkZjZjZjcxYTkwNzU0MGE3M2JkNzMxOTA2MzE2ZWM0YWQwNjU)
-- Whitepaper: [Link](https://hackmd.io/C-DvwDSfSxuh-Gd4WKE_ig)
+1. Install `yarn` on your local machine (if not installed already)
 
-## To Start Development
+1. Install the [metamask](https://metamask.io/) browser extension if you haven't already, and set up an account.
+    - If you already have a MetaMask, best to use a "dummy" address (with no real funds, etc) for this exercise, just to be safe. (note that you won't need to use metamask directly for this exercise, but it needs to be installed in the browser)
 
-### Install Dependencies
+1. Create a `.env.local` file and set the following environmental variables:
+    ```
+    REACT_APP_L1_NETWORK_ID="3"
+    REACT_APP_NETWORK_ID="123456789"
+    REACT_APP_ARB_VALIDATOR_URL="http://64.225.27.132:1235"
+    REACT_APP_BASE_URL_NAME="new"
+    REACT_APP_ARBISWAP_ADDRESS="0x716f0d674efeeca329f141d0ca0d97a98057bdbf"
+    ```
+1. Install the dependencies
 
-```bash
-yarn
-```
+1. Start the dev server
 
-### Configure Environment
+If the user interface builds and launches, you're set; console errors `network does not support ENS` and `contract not deployed` can be ignored. If you run into obstacles, let us know!
 
-Rename `.env.local.example` to `.env.local` and fill in the appropriate variables.
 
-### Run
-
-```bash
-yarn start
-```
-
-To run on a testnet, make a copy of `.env.local.example` named `.env.local`, change `REACT_APP_NETWORK_ID` to `"{yourNetworkId}"`, and change `REACT_APP_NETWORK_URL` to e.g. `"https://{yourNetwork}.infura.io/v3/{yourKey}"`.
-
-If deploying with Github Pages, be aware that there's some [tricky client-side routing behavior with `create-react-app`](https://create-react-app.dev/docs/deployment#notes-on-client-side-routing).
-
-## Contributions
-
-**Please open all pull requests against the `beta` branch.** CI checks will run against all PRs. To ensure that your changes will pass, run `yarn check:all` before pushing. If this command fails, you can try to automatically fix problems with `yarn fix:all`, or do it manually.
+You're welcome to take a look at the codebase, but this isn't necessary. Don't worry if you've never seen react hooks before; knowledge of react hooks won't be necessary to complete the exercise. 
