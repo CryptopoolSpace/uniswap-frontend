@@ -4,10 +4,12 @@ Complete the following on your local machine the day prior to the interview:
 
 1. Clone this repository
 
+1. `checkout` this branch (`interview-build`) 
+
 1. Install `yarn` on your local machine (if not installed already)
 
 1. Install the [metamask](https://metamask.io/) browser extension if you haven't already, and set up an account.
-    - If you already have a MetaMask, best to use a "dummy" address (with no real funds, etc) for this exercise, just to be safe. (note that you won't need to use metamask directly for this exercise, but it needs to be installed in the browser)
+    - If you already have a MetaMask account, best to use a "dummy" address (with no real funds, etc) for this exercise, just to be safe. (Note that you won't need to use metamask directly for this exercise, but it needs to be installed in the browser)
 
 1. Create a `.env.local` file and set the following environmental variables:
     ```
