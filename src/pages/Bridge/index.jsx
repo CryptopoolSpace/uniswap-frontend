@@ -152,6 +152,7 @@ export default function Bridge({ params = defaultBridgeParams }) {
     // new ethers.providers.Web3Provider(library.provider),
     new ethers.providers.Web3Provider(window.ethereum),
     process.env.REACT_APP_ARB_AGGREGATOR_URL,
+    true,
     0,
     true
   )

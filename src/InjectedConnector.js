@@ -55,7 +55,7 @@ export default class InjectedConnector extends ErrorCodeMixin(Connector, Injecte
     if (!arbUrl) {
       throw new Error('No arbitrum validator URL set via .env.local')
     }
-    return ArbProvider(arbUrl, ethereum || web3.currentProvider, aggregatorUrl)
+    return ArbProvider(arbUrl, ethereum || web3.currentProvider, aggregatorUrl, true)
   }
 
   async getAccount(provider) {
