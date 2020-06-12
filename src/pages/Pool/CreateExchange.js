@@ -11,6 +11,7 @@ import OversizedPanel from '../../components/OversizedPanel'
 import { useFactoryContract, useClearBrowserQueries } from '../../hooks'
 import { useTokenDetails } from '../../contexts/Tokens'
 import { useTransactionAdder } from '../../contexts/Transactions'
+import SpinnerButton from '../../components/SpinnerButton'
 
 const SummaryPanel = styled.div`
   ${({ theme }) => theme.flexColumnNoWrap};
@@ -139,9 +140,7 @@ function CreateExchange({ location, params }) {
         <SummaryText>{errorMessage ? errorMessage : t('enterTokenCont')}</SummaryText>
       </CreateExchangeWrapper>
       <Flex>
-        <Button disabled={!isValid} onClick={createExchange}>
-          {t('createExchange')}
-        </Button>
+      <SpinnerButton disabled={!isValid} onClick={createExchange} buttonText={t('createExchange')}/>
       </Flex>
     </>
   )

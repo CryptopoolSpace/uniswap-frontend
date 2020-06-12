@@ -18,6 +18,7 @@ import { useTokenDetails } from '../../contexts/Tokens'
 import { useFetchAllBalances } from '../../contexts/AllBalances'
 import { useAddressBalance, useExchangeReserves } from '../../contexts/Balances'
 import { useAddressAllowance } from '../../contexts/Allowances'
+import SpinnerButton from '../../components/SpinnerButton'
 
 import { withRouter } from 'react-router-dom'
 const INPUT = 0
@@ -657,9 +658,7 @@ function AddLiquidity({ params, location: { pathname = '' } }) {
       </OversizedPanel>
       {renderSummary()}
       <Flex>
-        <Button disabled={!isValid} onClick={onAddLiquidity}>
-          {t('addLiquidity')}
-        </Button>
+        <SpinnerButton disabled={!isValid} onClick={onAddLiquidity} buttonText={t('addLiquidity')}/>
       </Flex>
     </>
   )

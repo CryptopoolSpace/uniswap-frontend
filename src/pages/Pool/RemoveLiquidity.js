@@ -18,6 +18,7 @@ import { useAddressBalance } from '../../contexts/Balances'
 import { useFetchAllBalances } from '../../contexts/AllBalances'
 import { calculateGasMargin, amountFormatter } from '../../utils'
 import { withRouter } from 'react-router-dom'
+import SpinnerButton from '../../components/SpinnerButton'
 
 // denominated in bips
 const ALLOWED_SLIPPAGE = ethers.utils.bigNumberify(200)
@@ -420,9 +421,7 @@ function RemoveLiquidity({ params, location: { pathname = '' } }) {
       </OversizedPanel>
       {renderSummary()}
       <Flex>
-        <Button disabled={!isValid} onClick={onRemoveLiquidity}>
-          {t('removeLiquidity')}
-        </Button>
+      <SpinnerButton disabled={!isValid} onClick={onRemoveLiquidity} buttonText=  {t('removeLiquidity')}/>
       </Flex>
     </>
   )

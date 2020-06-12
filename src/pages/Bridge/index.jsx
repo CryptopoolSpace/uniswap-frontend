@@ -18,6 +18,8 @@ import { amountFormatter, getEtherscanLink } from '../../utils'
 import { ColoredDropdown } from '../Pool/ModeSelector'
 import { useUpdateFundsMessage } from '../../contexts/FundsMessage'
 import { Link } from '../../theme'
+import SpinnerButton from '../../components/SpinnerButton'
+
 const arbTokenAddress = process.env.REACT_APP_ARBISWAP_ADDRESS
 
 const defaultBridgeParams = {}
@@ -462,16 +464,18 @@ export default function Bridge({ params = defaultBridgeParams }) {
       </OversizedPanel>
 
       <ButtonContainer>
-        <Button disabled={isLoading} onClick={handleButtonClick} warning={!!errorMessage}>
-          {/* text should provide destination context */}
-          {isLoading ? (
-            <Spinner src={Circle} alt={'Loading...'} />
-          ) : transferType === TransferType.toArb ? (
-            'Deposit'
-          ) : (
-            'Withdraw'
-          )}
-        </Button>
+
+      <SpinnerButton 
+        disabled={isLoading} 
+        onClick={handleButtonClick} 
+        warning={!!errorMessage}
+        showSpinner={isLoading}
+        buttonText={transferType === TransferType.toArb ? (
+          'Deposit'
+        ) : (
+          'Withdraw'
+        )}
+      />
       </ButtonContainer>
     </>
   )

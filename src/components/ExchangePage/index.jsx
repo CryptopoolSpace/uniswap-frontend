@@ -21,6 +21,7 @@ import { useAddressBalance, useExchangeReserves } from '../../contexts/Balances'
 import { useFetchAllBalances } from '../../contexts/AllBalances'
 import { useAddressAllowance } from '../../contexts/Allowances'
 import { withRouter } from 'react-router'
+import SpinnerButton from '../../components/SpinnerButton'
 
 const INPUT = 0
 const OUTPUT = 1
@@ -749,19 +750,18 @@ function ExchangePage({ initialCurrency, sending = false, params, location: { pa
         sending={sending}
       />
       <Flex>
-        <Button
-          disabled={!isValid || customSlippageError === 'invalid'}
-          onClick={onSwap}
-          warning={highSlippageWarning || customSlippageError === 'warning'}
-        >
-          {sending
-            ? highSlippageWarning || customSlippageError === 'warning'
-              ? t('sendAnyway')
-              : t('send')
-            : highSlippageWarning || customSlippageError === 'warning'
-            ? t('swapAnyway')
-            : t('swap')}
-        </Button>
+        <SpinnerButton
+            disabled={!isValid || customSlippageError === 'invalid'}
+            onClick={onSwap}
+            warning={highSlippageWarning || customSlippageError === 'warning'}
+            buttonText={sending
+              ? highSlippageWarning || customSlippageError === 'warning'
+                ? t('sendAnyway')
+                : t('send')
+              : highSlippageWarning || customSlippageError === 'warning'
+              ? t('swapAnyway')
+              : t('swap')}
+        />
       </Flex>
     </>
   )
