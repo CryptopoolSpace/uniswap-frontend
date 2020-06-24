@@ -73,7 +73,7 @@ const FaucetModal = ({ modalIsOpen, setModalIsOpen }) => {
       })
       .catch(err => {
         const message = err.response && err.response.data ? err.response.data : 'Unknown error'
-        setErrorMessage(err.response.data)
+        setErrorMessage(message)
         setInputVal('')
       })
   }
