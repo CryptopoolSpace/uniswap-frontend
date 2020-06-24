@@ -1,10 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Modal from '../Modal'
 import { useWeb3Context } from 'web3-react'
 import styled from 'styled-components'
 import axios from 'axios'
+import SpinnerButton from '../SpinnerButton'
+import { Button, Spinner } from '../../theme'
+import Circle from '../../assets/images/circle.svg'
+import { useFundsMessageContext, fundsMessagesEnum } from '../../contexts/FundsMessage'
 
-import { useTransactionAdder } from '../../contexts/Transactions'
 const faucetAddress = process.env.REACT_APP_FUNDS_REQUEST_ADDRESS
 
 const ModalBody = styled.div`
@@ -33,12 +36,13 @@ const Input = styled.input`
     opacity: 1; /* Firefox */
   }
 `
-const Submit = styled.input`
+const Submit = styled.button`
   background-color: ${({ error, theme }) => theme.uniswapPink};
   color: white;
   border-radius: 5px;
   cursor: pointer;
   padding: 4px;
+  min-width: 55px;
   :disabled {
     opacity: 1;
     background-color: lightgrey;
@@ -57,11 +61,19 @@ const FaucetModal = ({ modalIsOpen, setModalIsOpen }) => {
   const { account } = useWeb3Context()
   const [inputVal, setInputVal] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
-  const addTransaction = useTransactionAdder()
+  const [waiting, setWaiting] = useState(false)
+  const [fundsMessageState] = useFundsMessageContext()
+
+  useEffect(()=>{
+    if (fundsMessageState === fundsMessagesEnum.SHOW_RECEIVED){
+        setModalIsOpen(false)
+    }   
+  },[fundsMessageState])
 
   function onSubmit(e) {
     e.preventDefault()
     setErrorMessage('')
+    setWaiting(true)
     axios
       .post(faucetAddress, {
         address: account,
@@ -69,12 +81,13 @@ const FaucetModal = ({ modalIsOpen, setModalIsOpen }) => {
       })
       .then(data => {
         console.info(data)
-        addTransaction(data.data)
       })
       .catch(err => {
         const message = err.response && err.response.data ? err.response.data : 'Unknown error'
         setErrorMessage(message)
         setInputVal('')
+      }).finally(()=>{
+          setWaiting(false)
       })
   }
   return (
@@ -102,7 +115,7 @@ const FaucetModal = ({ modalIsOpen, setModalIsOpen }) => {
             <ErrorMessage type="text" id="inputWarning" value="bad" editable={false}>
               {errorMessage}{' '}
             </ErrorMessage>
-            <Submit disabled={!inputVal} type="submit" />
+            <Submit disabled={!inputVal} type="submit" value>{ waiting ? <Spinner src={Circle}/> : "submit"}</Submit>
           </form>
         </ModalBody>
       </Modal>
