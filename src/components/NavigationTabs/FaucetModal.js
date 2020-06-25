@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback} from 'react'
 import Modal from '../Modal'
 import { useWeb3Context } from 'web3-react'
 import styled from 'styled-components'
