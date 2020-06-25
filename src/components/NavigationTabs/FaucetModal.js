@@ -63,17 +63,21 @@ const FaucetModal = ({ modalIsOpen, setModalIsOpen }) => {
   const [errorMessage, setErrorMessage] = useState('')
   const [waiting, setWaiting] = useState(false)
   const [fundsMessageState] = useFundsMessageContext()
-
+  
+  const clearModal = useCallback(()=>{
+    setModalIsOpen(false)
+    setWaiting(false)
+    setInputVal('')
+  })
   useEffect(()=>{
     if (fundsMessageState === fundsMessagesEnum.SHOW_RECEIVED){
-        setModalIsOpen(false)
+        clearModal()
     }   
-  },[fundsMessageState])
+  },[clearModal, fundsMessageState])
 
   function onSubmit(e) {
     e.preventDefault()
     setErrorMessage('')
-    setWaiting(true)
     axios
       .post(faucetAddress, {
         address: account,
@@ -81,23 +85,20 @@ const FaucetModal = ({ modalIsOpen, setModalIsOpen }) => {
       })
       .then(data => {
         console.info(data)
+        setWaiting(true)
       })
       .catch(err => {
         const message = err.response && err.response.data ? err.response.data : 'Unknown error'
         setErrorMessage(message)
         setInputVal('')
-      }).finally(()=>{
-          setWaiting(false)
+        setWaiting(false)
       })
   }
   return (
     <>
       <Modal
         isOpen={modalIsOpen}
-        onDismiss={() => {
-          setModalIsOpen(false)
-          setErrorMessage('')
-        }}
+        onDismiss={clearModal}
         minHeight={20}
       >
         <ModalBody>
