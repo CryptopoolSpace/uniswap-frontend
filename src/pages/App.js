@@ -10,7 +10,9 @@ import NavigationTabs from '../components/NavigationTabs'
 import { isAddress, getAllQueryParams } from '../utils'
 import WelcomeModal from '../components/WelcomeModal'
 import { useLocalStorage } from '@rehooks/local-storage'
-
+import { useArbTokenBridge } from 'arb-token-bridge'
+import { ethers } from 'ethers'
+import { useUpdateFundsMessage } from '../contexts/FundsMessage'
 const Swap = lazy(() => import('./Swap'))
 const Send = lazy(() => import('./Send'))
 const Pool = lazy(() => import('./Pool'))
@@ -54,6 +56,16 @@ export default function App() {
   const params = getAllQueryParams()
   const [shouldOpenModalCache, setShouldOpenModalCache] = useLocalStorage('welcomeModal', true)
 
+  const { balances, bridgeTokens, ...bridge }  = useArbTokenBridge(
+    process.env.REACT_APP_ARB_VALIDATOR_URL,
+    // new ethers.providers.Web3Provider(library.provider),
+    new ethers.providers.Web3Provider(window.ethereum),
+    process.env.REACT_APP_ARB_AGGREGATOR_URL,
+    true,
+    0,
+    true
+  )
+  useUpdateFundsMessage(bridge, balances)
   return (
     <>
       <Suspense fallback={null}>
@@ -114,7 +126,7 @@ export default function App() {
                         ]}
                         component={() => <Pool params={params} />}
                       />
-                      <Route exact path="/arbitrum" component={() => <Bridge />} />
+                      <Route exact path="/arbitrum" component={() => <Bridge balances={balances} bridgeTokens={bridgeTokens} bridge={bridge}  />} />
                       <Redirect to="/arbitrum" />
                     </Switch>
                   </Suspense>

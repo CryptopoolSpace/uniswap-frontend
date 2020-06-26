@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
-import { useArbTokenBridge, TokenType } from 'arb-token-bridge'
+import { TokenType } from 'arb-token-bridge'
 import { ethers } from 'ethers'
 import { lighten, darken } from 'polished'
 import Tooltip from '@reach/tooltip'
@@ -16,7 +16,6 @@ import Modal from '../../components/Modal'
 import { DownArrow, DownArrowBackground } from '../../components/ExchangePage'
 import { amountFormatter, getEtherscanLink } from '../../utils'
 import { ColoredDropdown } from '../Pool/ModeSelector'
-import { useUpdateFundsMessage } from '../../contexts/FundsMessage'
 import { Link } from '../../theme'
 import SpinnerButton from '../../components/SpinnerButton'
 
@@ -139,7 +138,7 @@ const TransferType = {
 const ETH_TOKEN = 'ETH'
 
 // TODO symbol image search overrides for each symbol if possible
-export default function Bridge({ params = defaultBridgeParams }) {
+export default function Bridge( { balances, bridgeTokens, bridge }) {
   const l1NetworkId = window.ethereum.networkVersion
   const [transferType, setTransferType] = useState(TransferType.toArb)
   const [transferValue, setTransferValue] = useState('0.0')
@@ -149,15 +148,6 @@ export default function Bridge({ params = defaultBridgeParams }) {
   const [errorMessage, setErrorMessage] = useState('')
 
   const { t: translated } = useTranslation()
-  const { balances, bridgeTokens, ...bridge } = useArbTokenBridge(
-    process.env.REACT_APP_ARB_VALIDATOR_URL,
-    // new ethers.providers.Web3Provider(library.provider),
-    new ethers.providers.Web3Provider(window.ethereum),
-    process.env.REACT_APP_ARB_AGGREGATOR_URL,
-    true,
-    0,
-    true
-  )
   const unlockToken = bridge.token.approve
 
   const vmIdParsed = bridge.vmId.slice(0, 8) || '0x'
@@ -324,7 +314,6 @@ export default function Bridge({ params = defaultBridgeParams }) {
       .map(tx => tx.value)
       .reduce((total, current) => total.add(current), ethers.constants.Zero)
   }
-  useUpdateFundsMessage(bridge, balances)
 
   useEffect(() => {
     if (!bridge.walletAddress || !bridge.vmId) return
