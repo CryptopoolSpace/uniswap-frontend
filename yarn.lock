@@ -2347,32 +2347,32 @@ aproba@^1.0.3, aproba@^1.1.1:
   resolved "https://registry.yarnpkg.com/aproba/-/aproba-1.2.0.tgz#6802e6264efd18c790a1b0d517f0f2627bf2c94a"
   integrity sha512-Y9J6ZjXtoYh8RnXVCMOU/ttDmk1aBjunq9vO0ta5x85WDQiQfUF9sIPBITdbiiIVcBo03Hi3jMxigBtsddlXRw==
 
-arb-provider-ethers@0.6.4, arb-provider-ethers@^0.6.4:
-  version "0.6.4"
-  resolved "https://registry.yarnpkg.com/arb-provider-ethers/-/arb-provider-ethers-0.6.4.tgz#b1faa9f84bb7d4b50bc78aac5263135a2431b678"
-  integrity sha512-KXCkj4RnXm4EbEgFb1KmXtCpSyyaEqeiswYZS7odMTYi6FfWt2K/sjudF5v0mVompLukcvi6KG5YTzBpuDq8uw==
+arb-provider-ethers@0.6.5, arb-provider-ethers@^0.6.5:
+  version "0.6.5"
+  resolved "https://registry.yarnpkg.com/arb-provider-ethers/-/arb-provider-ethers-0.6.5.tgz#91721a807785f0d969373e31b3c0504cbe6299f3"
+  integrity sha512-1GmofkkOgkDSbEassbKpN3NOJBkNno7xKwxF+WOLG69U6zeRTUjGWYa3csEWGvIuX9BCxX2GHxLHVnYSZeajbQ==
   dependencies:
     jayson "^3.2.0"
     promise-poller "^1.9.1"
 
-arb-provider-web3@^0.6.4:
-  version "0.6.4"
-  resolved "https://registry.yarnpkg.com/arb-provider-web3/-/arb-provider-web3-0.6.4.tgz#ce80eb3109b48422872477102f5404d01fba28e3"
-  integrity sha512-fJNEx23yqU+R/JhaM/gJn5a1NYRtWsJ40oqHFm6eP/47B/cAscrS285r9RQ9fkGTS8fEi2x+YY/DXMPySEjuvQ==
+arb-provider-web3@^0.6.5:
+  version "0.6.5"
+  resolved "https://registry.yarnpkg.com/arb-provider-web3/-/arb-provider-web3-0.6.5.tgz#9ddca7688fc723bff84eb66dca3f5d95e7f0b310"
+  integrity sha512-Ysh4pQkELnldWgnuRvkYBbAgI72GSioAsGRpsfka4ChnyEsfSItkOTo8zk4ZyVuAosHxbm3w1gBydiyEhpv3DA==
   dependencies:
-    arb-provider-ethers "0.6.4"
+    arb-provider-ethers "0.6.5"
     ethers "^4.0.44"
     ethers-providers "^2.1.19"
     ethers-utils "^2.1.11"
 
-arb-token-bridge@^0.1.3:
-  version "0.1.3"
-  resolved "https://registry.yarnpkg.com/arb-token-bridge/-/arb-token-bridge-0.1.3.tgz#8cb262fb653803e50680b90e24dd4df0b3752a0b"
-  integrity sha512-QSfVTJ6rtQGdHLGPM5lSr/IY0lRe9oltjVdCrZsdKlQQTNJv4sGPCR73tnWR6+ULsZEebIbHCQPElxPu33U4lA==
+arb-token-bridge@^0.1.4:
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/arb-token-bridge/-/arb-token-bridge-0.1.4.tgz#9da0a49345c3a8a18c74264414575bfb922e7af7"
+  integrity sha512-LJMxT9uUJwfNlcDbiA+EvEoDrAskw8sIe2oNK1upzUTivIfBRrBVRiCLcikoZZIr9Sg36L9y4IsE/mspZ9K+oQ==
   dependencies:
     "@rehooks/local-storage" "^2.3.0"
     "@types/lodash.isempty" "^4.4.6"
-    arb-provider-ethers "^0.6.4"
+    arb-provider-ethers "^0.6.5"
     ethers "^4.0.47"
     lodash.clonedeep "^4.5.0"
     lodash.isempty "^4.4.0"
