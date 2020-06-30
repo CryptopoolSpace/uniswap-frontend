@@ -5,7 +5,6 @@ import { useWeb3Context } from 'web3-react'
 import { ethers } from 'ethers'
 import styled from 'styled-components'
 
-import { Button } from '../../theme'
 import CurrencyInputPanel from '../../components/CurrencyInputPanel'
 import ContextualInfo from '../../components/ContextualInfo'
 import OversizedPanel from '../../components/OversizedPanel'
@@ -421,7 +420,7 @@ function RemoveLiquidity({ params, location: { pathname = '' } }) {
       </OversizedPanel>
       {renderSummary()}
       <Flex>
-      <SpinnerButton disabled={!isValid} onClick={onRemoveLiquidity} buttonText=  {t('removeLiquidity')}/>
+        <SpinnerButton disabled={!isValid} onClick={onRemoveLiquidity} buttonText={t('removeLiquidity')} />
       </Flex>
     </>
   )

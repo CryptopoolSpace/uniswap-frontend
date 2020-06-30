@@ -7,7 +7,6 @@ import { useWeb3Context } from 'web3-react'
 import { ethers } from 'ethers'
 import styled from 'styled-components'
 
-import { Button } from '../../theme'
 import CurrencyInputPanel from '../CurrencyInputPanel'
 import AddressInputPanel from '../AddressInputPanel'
 import OversizedPanel from '../OversizedPanel'
@@ -751,16 +750,18 @@ function ExchangePage({ initialCurrency, sending = false, params, location: { pa
       />
       <Flex>
         <SpinnerButton
-            disabled={!isValid || customSlippageError === 'invalid'}
-            onClick={onSwap}
-            warning={highSlippageWarning || customSlippageError === 'warning'}
-            buttonText={sending
+          disabled={!isValid || customSlippageError === 'invalid'}
+          onClick={onSwap}
+          warning={highSlippageWarning || customSlippageError === 'warning'}
+          buttonText={
+            sending
               ? highSlippageWarning || customSlippageError === 'warning'
                 ? t('sendAnyway')
                 : t('send')
               : highSlippageWarning || customSlippageError === 'warning'
               ? t('swapAnyway')
-              : t('swap')}
+              : t('swap')
+          }
         />
       </Flex>
     </>

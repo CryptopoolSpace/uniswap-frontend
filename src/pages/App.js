@@ -56,7 +56,7 @@ export default function App() {
   const params = getAllQueryParams()
   const [shouldOpenModalCache, setShouldOpenModalCache] = useLocalStorage('welcomeModal', true)
 
-  const { balances, bridgeTokens, ...bridge }  = useArbTokenBridge(
+  const { balances, bridgeTokens, ...bridge } = useArbTokenBridge(
     process.env.REACT_APP_ARB_VALIDATOR_URL,
     // new ethers.providers.Web3Provider(library.provider),
     new ethers.providers.Web3Provider(window.ethereum),
@@ -75,11 +75,11 @@ export default function App() {
           </HeaderWrapper>
           <BodyWrapper>
             <Body>
-            <Web3ReactManager>
-              <WelcomeModal
-                shouldOpenModalCache={shouldOpenModalCache}
-                setShouldOpenModalCache={setShouldOpenModalCache}
-              />
+              <Web3ReactManager>
+                <WelcomeModal
+                  shouldOpenModalCache={shouldOpenModalCache}
+                  setShouldOpenModalCache={setShouldOpenModalCache}
+                />
                 <HashRouter>
                   <NavigationTabs />
                   {/* this Suspense is for route code-splitting */}
@@ -126,7 +126,11 @@ export default function App() {
                         ]}
                         component={() => <Pool params={params} />}
                       />
-                      <Route exact path="/arbitrum" component={() => <Bridge balances={balances} bridgeTokens={bridgeTokens} bridge={bridge}  />} />
+                      <Route
+                        exact
+                        path="/arbitrum"
+                        component={() => <Bridge balances={balances} bridgeTokens={bridgeTokens} bridge={bridge} />}
+                      />
                       <Redirect to="/arbitrum" />
                     </Switch>
                   </Suspense>

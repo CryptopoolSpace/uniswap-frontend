@@ -53,7 +53,7 @@ export const Link = styled.a.attrs({
   }
 `
 export const EmphText = styled.span`
-color: ${({ theme }) => theme.pizazzOrange};
+  color: ${({ theme }) => theme.pizazzOrange};
 `
 
 export const BorderlessInput = styled.input`

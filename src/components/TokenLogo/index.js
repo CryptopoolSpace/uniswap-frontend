@@ -38,7 +38,7 @@ export default function TokenLogo({ address, size = '1rem', ...rest }) {
   let path = ''
   if (address === 'ETH') {
     return <StyledEthereumLogo size={size} />
-  } else if (address == process.env.REACT_APP_ARBISWAP_ADDRESS) {
+  } else if (address === process.env.REACT_APP_ARBISWAP_ADDRESS) {
     return <StyledArbiswapLogo size={size} />
   } else if (!error && !BAD_IMAGES[address]) {
     path = TOKEN_ICON_API(address.toLowerCase())

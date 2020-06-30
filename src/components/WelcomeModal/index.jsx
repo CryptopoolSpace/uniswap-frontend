@@ -22,7 +22,7 @@ function WelcomeModal({ shouldOpenModalCache, setShouldOpenModalCache }) {
         setModalIsOpen(true)
       }, delay)
     setDelay(0)
-  }, [shouldOpenModalCache])
+  }, [delay, shouldOpenModalCache])
 
   const onDismiss = useCallback(() => {
     setModalIsOpen(false)

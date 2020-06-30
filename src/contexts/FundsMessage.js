@@ -1,9 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react'
-import { ethers } from 'ethers'
 
 const arbTokenAddress = process.env.REACT_APP_ARBISWAP_ADDRESS
-
-const ZERO = ethers.utils.bigNumberify(0)
 
 export const fundsMessagesEnum = {
   LOADING: 'loading',
@@ -23,7 +20,6 @@ function needsFunds(balances) {
 }
 
 export function useUpdateFundsMessage(bridge, balances) {
-  const { vmId, walletAddress, eth } = bridge
   const [state, update] = useFundsMessageContext()
 
   useEffect(() => {

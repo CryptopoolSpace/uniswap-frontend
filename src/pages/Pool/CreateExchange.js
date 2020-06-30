@@ -5,7 +5,6 @@ import { ethers } from 'ethers'
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
 import ReactGA from 'react-ga'
-import { Button } from '../../theme'
 import AddressInputPanel from '../../components/AddressInputPanel'
 import OversizedPanel from '../../components/OversizedPanel'
 import { useFactoryContract, useClearBrowserQueries } from '../../hooks'
@@ -140,7 +139,7 @@ function CreateExchange({ location, params }) {
         <SummaryText>{errorMessage ? errorMessage : t('enterTokenCont')}</SummaryText>
       </CreateExchangeWrapper>
       <Flex>
-      <SpinnerButton disabled={!isValid} onClick={createExchange} buttonText={t('createExchange')}/>
+        <SpinnerButton disabled={!isValid} onClick={createExchange} buttonText={t('createExchange')} />
       </Flex>
     </>
   )

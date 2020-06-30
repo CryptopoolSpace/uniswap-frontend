@@ -5,7 +5,6 @@ import { ethers } from 'ethers'
 import ReactGA from 'react-ga'
 import styled from 'styled-components'
 
-import { Button } from '../../theme'
 import CurrencyInputPanel from '../../components/CurrencyInputPanel'
 import OversizedPanel from '../../components/OversizedPanel'
 import ContextualInfo from '../../components/ContextualInfo'
@@ -658,7 +657,7 @@ function AddLiquidity({ params, location: { pathname = '' } }) {
       </OversizedPanel>
       {renderSummary()}
       <Flex>
-        <SpinnerButton disabled={!isValid} onClick={onAddLiquidity} buttonText={t('addLiquidity')}/>
+        <SpinnerButton disabled={!isValid} onClick={onAddLiquidity} buttonText={t('addLiquidity')} />
       </Flex>
     </>
   )

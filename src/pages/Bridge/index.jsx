@@ -3,13 +3,13 @@ import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
 import { TokenType } from 'arb-token-bridge'
 import { ethers } from 'ethers'
-import { lighten, darken } from 'polished'
+import { lighten } from 'polished'
 import Tooltip from '@reach/tooltip'
 import '@reach/tooltip/styles.css'
 
 import Circle from '../../assets/images/circle.svg'
 import { ReactComponent as QuestionMark } from '../../assets/images/question.svg'
-import { Button, Spinner } from '../../theme'
+import { Spinner } from '../../theme'
 import CurrencyInputPanel from '../../components/CurrencyInputPanel'
 import OversizedPanel from '../../components/OversizedPanel'
 import Modal from '../../components/Modal'
@@ -20,8 +20,6 @@ import { Link } from '../../theme'
 import SpinnerButton from '../../components/SpinnerButton'
 
 const arbTokenAddress = process.env.REACT_APP_ARBISWAP_ADDRESS
-
-const defaultBridgeParams = {}
 
 const TransferTypeSelection = styled.div`
   ${({ theme }) => theme.flexRowNoWrap};
@@ -119,12 +117,12 @@ const WithdrawLockBoxBtn = styled.span`
   }
 `
 
-const CurrencyInputDescription = styled.span`
-  color: ${({ theme }) => darken(0.2, theme.doveGray)} !important;
-  &:hover {
-    cursor: initial !important;
-  }
-`
+// const CurrencyInputDescription = styled.span`
+//   color: ${({ theme }) => darken(0.2, theme.doveGray)} !important;
+//   &:hover {
+//     cursor: initial !important;
+//   }
+// `
 
 const StyledQuestionMark = styled(QuestionMark)`
   padding-left: 0.5rem;
@@ -138,7 +136,7 @@ const TransferType = {
 const ETH_TOKEN = 'ETH'
 
 // TODO symbol image search overrides for each symbol if possible
-export default function Bridge( { balances, bridgeTokens, bridge }) {
+export default function Bridge({ balances, bridgeTokens, bridge }) {
   const l1NetworkId = window.ethereum.networkVersion
   const [transferType, setTransferType] = useState(TransferType.toArb)
   const [transferValue, setTransferValue] = useState('0.0')
@@ -431,6 +429,7 @@ export default function Bridge( { balances, bridgeTokens, bridge }) {
                 <a
                   target="_blank"
                   href="https://medium.com/offchainlabs/optimizing-challenge-periods-in-rollup-b61378c87277"
+                  rel="noopener noreferrer"
                 >
                   <StyledQuestionMark />
                 </a>
@@ -453,18 +452,13 @@ export default function Bridge( { balances, bridgeTokens, bridge }) {
       </OversizedPanel>
 
       <ButtonContainer>
-
-      <SpinnerButton 
-        disabled={isLoading} 
-        onClick={handleButtonClick} 
-        warning={!!errorMessage}
-        showSpinner={isLoading}
-        buttonText={transferType === TransferType.toArb ? (
-          'Deposit'
-        ) : (
-          'Withdraw'
-        )}
-      />
+        <SpinnerButton
+          disabled={isLoading}
+          onClick={handleButtonClick}
+          warning={!!errorMessage}
+          showSpinner={isLoading}
+          buttonText={transferType === TransferType.toArb ? 'Deposit' : 'Withdraw'}
+        />
       </ButtonContainer>
     </>
   )

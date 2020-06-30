@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect, useCallback } from 'react'
 import Carousel from 'react-elastic-carousel'
 import ImageSlide from './ImageSlide'
 import WrongNetworkGif from '../../assets/gifs/wrong-network.gif'
@@ -38,7 +38,7 @@ function WelcomeCarousel() {
   const [autoPlayEnabled, setAutoPlay] = useState(true)
   const disableAutoPlay = () => setAutoPlay(false)
 
-  function handleArrowPress(e) {
+  const  handleArrowPress = useCallback((e)=>{
     e.stopPropagation()
     switch (e.keyCode) {
       case 37:
@@ -52,7 +52,7 @@ function WelcomeCarousel() {
       default:
         break
     }
-  }
+  }, [carouselRef])
 
   useEffect(() => {
     document.addEventListener('keydown', handleArrowPress)
@@ -78,7 +78,12 @@ function WelcomeCarousel() {
         text={
           <span>
             {' '}
-            Welcome to Arbiswap, a layer 2 implementation of the Uniswap Exchange on Arbitrum Rollup, brought to you by the friendly folks at <Link  target="_blank" href="https://offchainlabs.com/"> Offchain Labs!</Link>
+            Welcome to Arbiswap, a layer 2 implementation of the Uniswap Exchange on Arbitrum Rollup, brought to you by
+            the friendly folks at{' '}
+            <Link target="_blank" href="https://offchainlabs.com/">
+              {' '}
+              Offchain Labs!
+            </Link>
             <br />
             <br />
             Once you get some funds on the rollup chain, you can use them just like you would Layer 1 Uniswap.
@@ -105,8 +110,8 @@ function WelcomeCarousel() {
       <ImageSlide
         text={
           <span>
-            Now you’ll need to get some funds onto our Arbitrum Rollup chain. If you already have Ropsten ETH or any Ropsten
-            ERC20 token, you can deposit via the <EmphText>Deposit/Withdraw </EmphText>tab.
+            Now you’ll need to get some funds onto our Arbitrum Rollup chain. If you already have Ropsten ETH or any
+            Ropsten ERC20 token, you can deposit via the <EmphText>Deposit/Withdraw </EmphText>tab.
           </span>
         }
         imageUrl={DespositGif}
@@ -123,8 +128,8 @@ function WelcomeCarousel() {
       <ImageSlide
         text={
           <span>
-            Once you have funds in the Arbitrum Rollup chain, you can use them just like you would in Uniswap on Layer 1: send, swap, add
-            liquidity, etc.
+            Once you have funds in the Arbitrum Rollup chain, you can use them just like you would in Uniswap on Layer
+            1: send, swap, add liquidity, etc.
           </span>
         }
         imageUrl={ActionsGif}
@@ -133,8 +138,8 @@ function WelcomeCarousel() {
         text={
           <span>
             <span>
-              To withdraw your Ether/ERC20 tokens back to Layer 1, select the <EmphText>Withdraw</EmphText> option on the {' '} 
-              <EmphText>Deposit/Withdraw</EmphText> panel.{' '}
+              To withdraw your Ether/ERC20 tokens back to Layer 1, select the <EmphText>Withdraw</EmphText> option on
+              the <EmphText>Deposit/Withdraw</EmphText> panel.{' '}
             </span>
             <br />
             <br />
@@ -161,13 +166,16 @@ function WelcomeCarousel() {
             For more info, checkout our{' '}
             <Link href="qq" target="_blank">
               blog
-            </Link>,{' '}
-            our{' '}
+            </Link>
+            , our{' '}
             <Link href="https://developer.offchainlabs.com/docs/Developer_Quickstart/" target="_blank">
-              developer docs 
-            </Link>, and the <Link href="https://offchainlabs.com/" target="_blank">
+              developer docs
+            </Link>
+            , and the{' '}
+            <Link href="https://offchainlabs.com/" target="_blank">
               Offchain Labs website
-            </Link>.
+            </Link>
+            .
             <br /> <br />
             Happy swapping!
           </span>

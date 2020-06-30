@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { transparentize } from 'polished'
-import TweetButton from './TweetButton'
+// import TweetButton from './TweetButton'
 import { Link } from '../../theme'
-import Modal from '../Modal'
 import FaucetModal from './FaucetModal'
 
 const TweetFaucetMessage = styled.div`

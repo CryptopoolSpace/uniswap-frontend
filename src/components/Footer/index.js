@@ -77,12 +77,11 @@ const OCLDiv = styled.div`
   padding-left: 50px;
   // justify-content: flex-end;
   font-size: 14px;
-  a{
+  a {
     text-decoration: none;
     color: ${({ theme }) => theme.chaliceGray};
-
   }
-  #arblogo{
+  #arblogo {
     max-width: 100%;
     max-height: 100%;
     width: 1.5em;
@@ -90,7 +89,6 @@ const OCLDiv = styled.div`
     margin-left: 4px;
     align-self: center;
   }
-
 `
 
 export default function Footer() {
@@ -118,10 +116,12 @@ export default function Footer() {
         </Title>
       </FooterElement>
       <OCLDiv>
-   
-        <a href='https://offchainlabs.com/' target='_blank'>Brought to you by Offchain Labs </a>
-        <a href='https://offchainlabs.com/' target='_blank'><img id="arblogo" src={ArbLogo}/></a>
-      
+        <a href="https://offchainlabs.com/" target="_blank" rel="noopener noreferrer">
+          Brought to you by Offchain Labs{' '}
+        </a>
+        <a href="https://offchainlabs.com/" target="_blank" rel="noopener noreferrer">
+          <img id="arblogo" src={ArbLogo} alt="" />
+        </a>
       </OCLDiv>
       <StyledToggle
         checked={!isDark}

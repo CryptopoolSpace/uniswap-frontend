@@ -6,12 +6,12 @@ const WelcomeImg = styled.img`
   height: auto;
   border: 4px solid #dc6be5;
   border-radius: 5px;
-   ${({ theme }) => theme.mediaWidth.upToMedium`
+  ${({ theme }) => theme.mediaWidth.upToMedium`
   width: 320px;
       height: auto;
 
    `}
-   ${({ theme }) => theme.mediaWidth.upToSmall`
+  ${({ theme }) => theme.mediaWidth.upToSmall`
    width: 230px;
    height: auto;
 
@@ -40,13 +40,6 @@ const WelcomeSliderContainer = styled.div`
   flex-direction: column;
   width: 90%;
 `
-
-const borderStyle = {
-  border: '3px solid #DC6BE5',
-  borderRadius: '3px'
-}
-
-const none = {}
 
 function ImageSlide({ text, imageUrl, imageStyle = {}, textStyle = {} }) {
   return (

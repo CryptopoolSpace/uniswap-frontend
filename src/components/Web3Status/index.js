@@ -254,7 +254,7 @@ export default function Web3Status() {
 
   useEffect(() => {
     const { ethereum } = window
-    if (ethereum && ethereum.networkVersion != l1networkId) {
+    if (ethereum && ethereum.networkVersion !== l1networkId) {
       const error = new Error('Unsupported Network')
       error.code = Connector.errorCodes.UNSUPPORTED_NETWORK
       setError(error)

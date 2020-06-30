@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useCallback} from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import Modal from '../Modal'
 import { useWeb3Context } from 'web3-react'
 import styled from 'styled-components'
 import axios from 'axios'
-import SpinnerButton from '../SpinnerButton'
-import { Button, Spinner } from '../../theme'
+import { Spinner } from '../../theme'
 import Circle from '../../assets/images/circle.svg'
 import { useFundsMessageContext, fundsMessagesEnum } from '../../contexts/FundsMessage'
 
@@ -56,24 +55,23 @@ const ErrorMessage = styled.div`
   min-height: 2em;
 `
 
-const Form = styled.form``
 const FaucetModal = ({ modalIsOpen, setModalIsOpen }) => {
   const { account } = useWeb3Context()
   const [inputVal, setInputVal] = useState('')
   const [errorMessage, setErrorMessage] = useState('')
   const [waiting, setWaiting] = useState(false)
   const [fundsMessageState] = useFundsMessageContext()
-  
-  const clearModal = useCallback(()=>{
+
+  const clearModal = useCallback(() => {
     setModalIsOpen(false)
     setWaiting(false)
     setInputVal('')
-  })
-  useEffect(()=>{
-    if (fundsMessageState === fundsMessagesEnum.SHOW_RECEIVED){
-        clearModal()
-    }   
-  },[clearModal, fundsMessageState])
+  }, [setModalIsOpen])
+  useEffect(() => {
+    if (fundsMessageState === fundsMessagesEnum.SHOW_RECEIVED) {
+      clearModal()
+    }
+  }, [clearModal, fundsMessageState])
 
   function onSubmit(e) {
     e.preventDefault()
@@ -96,11 +94,7 @@ const FaucetModal = ({ modalIsOpen, setModalIsOpen }) => {
   }
   return (
     <>
-      <Modal
-        isOpen={modalIsOpen}
-        onDismiss={clearModal}
-        minHeight={20}
-      >
+      <Modal isOpen={modalIsOpen} onDismiss={clearModal} minHeight={20}>
         <ModalBody>
           <div>
             Send funds to <span>{account}</span>
@@ -116,7 +110,9 @@ const FaucetModal = ({ modalIsOpen, setModalIsOpen }) => {
             <ErrorMessage type="text" id="inputWarning" value="bad" editable={false}>
               {errorMessage}{' '}
             </ErrorMessage>
-            <Submit disabled={!inputVal} type="submit" value>{ waiting ? <Spinner src={Circle}/> : "submit"}</Submit>
+            <Submit disabled={!inputVal} type="submit" value>
+              {waiting ? <Spinner src={Circle} /> : 'submit'}
+            </Submit>
           </form>
         </ModalBody>
       </Modal>
