@@ -149,7 +149,7 @@ const MobileMenuStyles = styled.span`
 
 const noddingUnicorn = (
   <Nod className={'unicorn'}>
-    <Link className={'link'} href="qqq">
+    <Link className={'link'} href="https://offchainlabs.com/">
       <img src={logo} id="arbiswaplogo" alt="Logo" />
     </Link>
   </Nod>
@@ -158,7 +158,7 @@ const noddingUnicorn = (
 export default function Header({ setShouldOpenModalCache }) {
   const showWelcomeModal = () => setShouldOpenModalCache(true)
   const menuLinks = [
-    <Link className={'link'} href="qqq">
+    <Link className={'link'} href="https://offchainlabs.com/">
       <div className="title">Arbiswap</div>
     </Link>,
     <Link className={'link'} href="https://developer.offchainlabs.com">

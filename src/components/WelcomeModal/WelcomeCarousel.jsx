@@ -38,21 +38,24 @@ function WelcomeCarousel() {
   const [autoPlayEnabled, setAutoPlay] = useState(true)
   const disableAutoPlay = () => setAutoPlay(false)
 
-  const  handleArrowPress = useCallback((e)=>{
-    e.stopPropagation()
-    switch (e.keyCode) {
-      case 37:
-        carouselRef.current.slidePrev()
-        disableAutoPlay()
-        break
-      case 39:
-        carouselRef.current.slideNext()
-        disableAutoPlay()
-        break
-      default:
-        break
-    }
-  }, [carouselRef])
+  const handleArrowPress = useCallback(
+    e => {
+      e.stopPropagation()
+      switch (e.keyCode) {
+        case 37:
+          carouselRef.current.slidePrev()
+          disableAutoPlay()
+          break
+        case 39:
+          carouselRef.current.slideNext()
+          disableAutoPlay()
+          break
+        default:
+          break
+      }
+    },
+    [carouselRef]
+  )
 
   useEffect(() => {
     document.addEventListener('keydown', handleArrowPress)
